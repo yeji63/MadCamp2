@@ -2,13 +2,18 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.madcamp2">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
+        android:name=".CustomApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:usesCleartextTraffic="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MadCamp2">
+        <activity android:name=".SubActivity"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,8 +24,7 @@
 
         <meta-data
             android:name="com.kakao.sdk.AppKey"
-            android:value="daad52223919b46b71d754468f98ab90"/>
-
+            android:value="daad52223919b46b71d754468f98ab90" />
     </application>
 
 </manifest>
