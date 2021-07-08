@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     private void getAppKeyHash(){
         try{
             PackageInfo info = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_SIGNATURES);
+
         } catch (Exception e) {
 
         }
