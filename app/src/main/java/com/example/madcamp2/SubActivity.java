@@ -2,9 +2,11 @@ package com.example.madcamp2;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -27,6 +29,7 @@ public class SubActivity extends AppCompatActivity
     private Retrofit retrofit;
     private RetrofitInterface retrofitInterface;
     private String BASE_URL = "http://192.249.18.145:80";
+    private static Context mCon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -34,6 +37,7 @@ public class SubActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sub);
 
+        mCon = getApplicationContext();
         Intent intent = getIntent();
         strNick = intent.getStringExtra("name");
         strProfileImg = intent.getStringExtra("profileImg");
@@ -76,6 +80,15 @@ public class SubActivity extends AppCompatActivity
 
         adapter.addGroup(new Listgroup("우츠", "18:00"));
         gridView.setAdapter(adapter);
+
+        Button addbutton = findViewById(R.id.btn_add);
+        addbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AddGroup dialog = new AddGroup(mCon, adapter);
+                dialog.show(getSupportFragmentManager(), "todoDialog");
+            }
+        });
 
 
 

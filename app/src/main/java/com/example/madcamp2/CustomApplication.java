@@ -16,7 +16,6 @@ import com.kakao.auth.KakaoSDK;
 public class CustomApplication extends Application
 {
     private static volatile CustomApplication instance = null;
-
     private static class KakaoSDKAdapter extends KakaoAdapter
     {
         // 카카오 로그인 세션을 불러올 때의 설정값을 설정하는 부분.
