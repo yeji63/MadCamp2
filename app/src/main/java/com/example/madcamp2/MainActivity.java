@@ -20,6 +20,7 @@ import com.kakao.usermgmt.UserManagement;
 import com.kakao.usermgmt.callback.MeV2ResponseCallback;
 import com.kakao.usermgmt.response.MeV2Response;
 import com.kakao.util.exception.KakaoException;
+import com.kakao.util.helper.log.Logger;
 
 import java.security.MessageDigest;
 
@@ -72,6 +73,10 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onSessionOpenFailed(KakaoException exception)
             {
+                Log.i("SessionCallback", "Error");
+                if(exception != null) {
+                    Logger.e(exception);
+                }
                 Toast.makeText(MainActivity.this, "onSessionOpenFailed", Toast.LENGTH_SHORT).show();
             }
         };
@@ -79,7 +84,7 @@ public class MainActivity extends AppCompatActivity
         Session.getCurrentSession().checkAndImplicitOpen();
 
 
-//        getAppKeyHash();
+        getAppKeyHash();
     }
 
 
