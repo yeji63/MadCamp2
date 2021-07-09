@@ -3,14 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".fragments.ToDoFragment">
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/tv_link_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="16dp"
         android:text="Add ToDo"
         android:textColor="#000000"
         android:textSize="34sp"
@@ -23,29 +22,31 @@
         android:id="@+id/bt_link_submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginLeft="56dp"
+        android:layout_marginTop="187dp"
         android:layout_marginBottom="24dp"
         android:backgroundTint="#03A9F4"
         android:text="Submit"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/et_todo"
-        app:layout_constraintTop_toBottomOf="@+id/et_todo" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_headcount"
+        app:layout_constraintVertical_bias="0.271" />
 
     <Button
         android:id="@+id/bt_link_cancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="92dp"
+        android:layout_marginLeft="92dp"
+        android:layout_marginTop="250dp"
         android:layout_marginBottom="24dp"
         android:backgroundTint="#E91E63"
         android:text="Cancel"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/et_todo"
-        app:layout_constraintTop_toBottomOf="@+id/et_todo" />
+        app:layout_constraintStart_toEndOf="@+id/bt_link_submit"
+        app:layout_constraintTop_toBottomOf="@+id/et_headcount"
+        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/et_link"
@@ -53,13 +54,13 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginLeft="24dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="12dp"
         android:layout_marginEnd="24dp"
         android:layout_marginRight="24dp"
         android:ems="10"
-        android:hint="Date (Touch Twice)"
-        android:inputType="date"
+        android:hint="Time"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_link_title" />
 
@@ -73,10 +74,26 @@
         android:layout_marginEnd="24dp"
         android:layout_marginRight="24dp"
         android:ems="10"
-        android:hint="ToDo"
-        android:inputType="textPersonName"
+        android:hint="Place"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.507"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_link" />
+
+    <EditText
+        android:id="@+id/et_headcount"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:ems="10"
+        android:hint="Headcount"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_todo" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

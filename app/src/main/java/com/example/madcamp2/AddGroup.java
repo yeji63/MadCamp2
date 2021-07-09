@@ -16,10 +16,20 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import java.util.Calendar;
+import java.util.HashMap;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class AddGroup extends DialogFragment {
     private Context mCon;
     private GridAdapter adapter;
+    private Retrofit retrofit;
+    private RetrofitInterface retrofitInterface;
+    private String BASE_URL = "http://192.249.18.145:80";
 
     public AddGroup(Context context, GridAdapter adapter) {
         this.adapter = adapter;
@@ -40,26 +50,10 @@ public class AddGroup extends DialogFragment {
 
         EditText et_date = rootView.findViewById(R.id.et_link);
         EditText et_todo = rootView.findViewById(R.id.et_todo);
+        EditText et_headcount = rootView.findViewById(R.id.et_headcount);
         Button btn_cancel = rootView.findViewById(R.id.bt_link_cancel);
         Button btn_submit = rootView.findViewById(R.id.bt_link_submit);
 
-        et_date.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Calendar calendar = Calendar.getInstance();
-                int year = calendar.get(1);
-                int month = calendar.get(2);
-                int day = calendar.get(5);
-                DatePickerDialog.OnDateSetListener listener = (new DatePickerDialog.OnDateSetListener() {
-                    public final void onDateSet(DatePicker $noName_0, int i, int i2, int i3) {
-                        et_date.setText("" + i + '-' + (i2 + 1) + '-' + i3);
-                    }
-                });
-                DatePickerDialog picker = new DatePickerDialog(mCon, listener, year, month, day);
-                picker.show();
-
-            }
-        });
         btn_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,7 +63,28 @@ public class AddGroup extends DialogFragment {
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mCon, "Please Fill All the Data!", Toast.LENGTH_SHORT).show();
+                retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
+                retrofitInterface = retrofit.create(RetrofitInterface.class);
+                HashMap<String, String> map = new HashMap<>();
+                map.put("time", et_date.getText().toString());
+                map.put("place", et_todo.getText().toString());
+                map.put("headcount", et_headcount.getText().toString());
+                Call<GroupItem> call = retrofitInterface.executeGroupAdd(map);
+                call.enqueue(new Callback<GroupItem>() {
+                    @Override
+                    public void onResponse(Call<GroupItem> call, Response<GroupItem> response) {
+                        if (response.code() == 200) {
+                            Toast.makeText(mCon, "add group successfully", Toast.LENGTH_LONG).show();
+                        } else if (response.code() == 400) {
+                            Toast.makeText(mCon, "Already registered", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<GroupItem> call, Throwable t) {
+                        Toast.makeText(mCon, t.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+                dismiss();
             }
         });
 

@@ -22,13 +22,13 @@
 
     <ImageView
         android:id="@+id/iv_profile"
-        android:layout_width="37dp"
-        android:layout_height="37dp"
+        android:layout_width="48dp"
+        android:layout_height="41dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toTopOf="@+id/tv_nickName"
         app:layout_constraintEnd_toEndOf="@+id/tv_nickName"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.571"
         app:layout_constraintStart_toStartOf="@+id/tv_nickName"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />

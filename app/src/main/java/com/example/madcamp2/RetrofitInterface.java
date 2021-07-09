@@ -14,4 +14,7 @@ public interface RetrofitInterface {
     @POST("/signup")
     Call<Void> executeSignup (@Body HashMap<String, String> map);
 
+    @POST("/addgroup")
+    Call<GroupItem> executeGroupAdd (@Body HashMap<String, String> map);
+
 }
