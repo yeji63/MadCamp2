@@ -6,7 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -19,7 +21,6 @@ import com.kakao.usermgmt.callback.LogoutResponseCallback;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -35,6 +36,7 @@ public class SubActivity extends AppCompatActivity
     private String BASE_URL = "http://192.249.18.145:80";
     private static Context mCon;
     private GridAdapter adapter;
+    private GridView gridView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -76,8 +78,20 @@ public class SubActivity extends AppCompatActivity
             }
         });
 
+        gridView = findViewById(R.id.gridView);
+
         //gridview(init)
         AddGroup();
+
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent i = new Intent(getApplicationContext(), DetailActivity.class);
+                i.putExtra("id", position);
+                startActivity(i);
+            }
+        });
+
 
         //add group dialog
         Button addbutton = findViewById(R.id.btn_add);
@@ -118,7 +132,7 @@ public class SubActivity extends AppCompatActivity
                 if (response.code() == 200) {
                     ArrayList<Listgroup> fromdb = response.body();
                     //gridview
-                    GridView gridView = findViewById(R.id.gridView);
+
                     adapter = new GridAdapter(fromdb);
                     gridView.setAdapter(adapter);
                 }
