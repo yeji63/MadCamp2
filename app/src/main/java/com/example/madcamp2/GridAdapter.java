@@ -13,6 +13,10 @@ public class GridAdapter extends BaseAdapter {
     ArrayList<Listgroup> groups = new ArrayList<Listgroup>();
     Context context;
 
+    GridAdapter(ArrayList<Listgroup> groups) {
+        this.groups = groups;
+    }
+
     public void addGroup(Listgroup group) {
         groups.add(group);
     }

@@ -1,5 +1,6 @@
 package com.example.madcamp2;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
@@ -15,7 +16,10 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.kakao.usermgmt.UserManagement;
 import com.kakao.usermgmt.callback.LogoutResponseCallback;
+
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -30,6 +34,7 @@ public class SubActivity extends AppCompatActivity
     private RetrofitInterface retrofitInterface;
     private String BASE_URL = "http://192.249.18.145:80";
     private static Context mCon;
+    private GridAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -50,36 +55,29 @@ public class SubActivity extends AppCompatActivity
         // 프로필 이미지 사진 set
         Glide.with(this).load(strProfileImg).into(iv_profile);
 
+        //check account
         retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
         retrofitInterface = retrofit.create(RetrofitInterface.class);
         HashMap<String, String> map = new HashMap<>();
         map.put("nickname", strNick);
-        Call<Void> call = retrofitInterface.executeSignup(map);
-        call.enqueue(new Callback<Void>() {
+        Call<Void> callsignup = retrofitInterface.executeSignup(map);
+        callsignup.enqueue(new Callback<Void>() {
             @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
+            public void onResponse(Call<Void> callsignup, Response<Void> response) {
                 if (response.code() == 200) {
-                    Toast.makeText(SubActivity.this,
-                            "Signed up successfully", Toast.LENGTH_LONG).show();
+                    Toast.makeText(SubActivity.this, "Signed up successfully", Toast.LENGTH_LONG).show();
                 } else if (response.code() == 400) {
-                    Toast.makeText(SubActivity.this,
-                            "Already registered", Toast.LENGTH_LONG).show();
+                    Toast.makeText(SubActivity.this, "Already registered", Toast.LENGTH_LONG).show();
                 }
             }
             @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-                Toast.makeText(SubActivity.this, t.getMessage(),
-                        Toast.LENGTH_LONG).show();
+            public void onFailure(Call<Void> callsignup, Throwable t) {
+                Toast.makeText(SubActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
 
-
-        //gridview
-        GridView gridView = findViewById(R.id.gridView);
-        GridAdapter adapter = new GridAdapter();
-
-        adapter.addGroup(new Listgroup("우츠", "18:00"));
-        gridView.setAdapter(adapter);
+        //gridview(init)
+        AddGroup();
 
         Button addbutton = findViewById(R.id.btn_add);
         addbutton.setOnClickListener(new View.OnClickListener() {
@@ -88,11 +86,10 @@ public class SubActivity extends AppCompatActivity
                 AddGroup dialog = new AddGroup(mCon, adapter);
                 dialog.show(getSupportFragmentManager(), "todoDialog");
             }
+
         });
 
-
-
-        // 로그아웃
+        // logout
         findViewById(R.id.btn_logout).setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -109,7 +106,32 @@ public class SubActivity extends AppCompatActivity
                 });
             }
         });
-
-
     }
+
+    private void AddGroup() {
+        retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
+        retrofitInterface = retrofit.create(RetrofitInterface.class);
+        Call<ArrayList<Listgroup>> callgroupget = retrofitInterface.executeGroupGet();
+        callgroupget.enqueue(new Callback<ArrayList<Listgroup>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Listgroup>> callgroupget, Response<ArrayList<Listgroup>> response) {
+                if (response.code() == 200) {
+                    ArrayList<Listgroup> fromdb = response.body();
+                    //gridview
+                    GridView gridView = findViewById(R.id.gridView);
+                    adapter = new GridAdapter(fromdb);
+                    gridView.setAdapter(adapter);
+
+                }
+                else {
+                    Toast.makeText(SubActivity.this, "test", Toast.LENGTH_LONG).show();
+                }
+            }
+            @Override
+            public void onFailure(Call<ArrayList<Listgroup>> callgroupget, Throwable t) {
+                Toast.makeText(SubActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
 }

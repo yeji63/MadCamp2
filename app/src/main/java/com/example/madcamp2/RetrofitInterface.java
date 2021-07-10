@@ -1,9 +1,10 @@
 package com.example.madcamp2;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public interface RetrofitInterface {
@@ -16,5 +17,9 @@ public interface RetrofitInterface {
 
     @POST("/addgroup")
     Call<GroupItem> executeGroupAdd (@Body HashMap<String, String> map);
+
+    @GET("/getgroup")
+    Call<ArrayList<Listgroup>> executeGroupGet();
+
 
 }

@@ -47,7 +47,6 @@ public class AddGroup extends DialogFragment {
     public View onCreateView(@NonNull @org.jetbrains.annotations.NotNull LayoutInflater inflater, @Nullable @org.jetbrains.annotations.Nullable ViewGroup container, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.add_group, container, false);
 
-
         EditText et_date = rootView.findViewById(R.id.et_link);
         EditText et_todo = rootView.findViewById(R.id.et_todo);
         EditText et_headcount = rootView.findViewById(R.id.et_headcount);
