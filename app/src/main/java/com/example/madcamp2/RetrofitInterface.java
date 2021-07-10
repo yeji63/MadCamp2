@@ -16,7 +16,7 @@ public interface RetrofitInterface {
     Call<Void> executeSignup (@Body HashMap<String, String> map);
 
     @POST("/addgroup")
-    Call<GroupItem> executeGroupAdd (@Body HashMap<String, String> map);
+    Call<Void> executeGroupAdd (@Body HashMap<String, String> map);
 
     @GET("/getgroup")
     Call<ArrayList<Listgroup>> executeGroupGet();
