@@ -61,11 +61,12 @@ public class MainActivity extends AppCompatActivity
                     {
                         // 로그인 성공
                         Intent intent = new Intent(MainActivity.this, SubActivity.class);
+                        Log.d("회원번호", String.valueOf(result.getId()));
                         intent.putExtra("name", result.getKakaoAccount().getProfile().getNickname());
                         intent.putExtra("profileImg", result.getKakaoAccount().getProfile().getProfileImageUrl());
                         startActivity(intent);
 
-//                        Toast.makeText(MainActivity.this, "환영 합니다 !", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(MainActivity.this, "환영합니다 !", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
