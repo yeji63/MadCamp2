@@ -1,5 +1,6 @@
 package com.example.madcamp2;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
@@ -55,9 +56,7 @@ public class AddGroup extends DialogFragment {
 
         btn_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                dismiss();
-            }
+            public void onClick(View v) {dismiss();}
         });
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override

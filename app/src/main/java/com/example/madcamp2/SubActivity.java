@@ -79,6 +79,7 @@ public class SubActivity extends AppCompatActivity
         //gridview(init)
         AddGroup();
 
+        //add group dialog
         Button addbutton = findViewById(R.id.btn_add);
         addbutton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,7 +87,6 @@ public class SubActivity extends AppCompatActivity
                 AddGroup dialog = new AddGroup(mCon, adapter);
                 dialog.show(getSupportFragmentManager(), "todoDialog");
             }
-
         });
 
         // logout
@@ -121,7 +121,6 @@ public class SubActivity extends AppCompatActivity
                     GridView gridView = findViewById(R.id.gridView);
                     adapter = new GridAdapter(fromdb);
                     gridView.setAdapter(adapter);
-
                 }
                 else {
                     Toast.makeText(SubActivity.this, "test", Toast.LENGTH_LONG).show();
@@ -132,6 +131,12 @@ public class SubActivity extends AppCompatActivity
                 Toast.makeText(SubActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        AddGroup();
     }
 
 }
