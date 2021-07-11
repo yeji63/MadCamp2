@@ -98,8 +98,8 @@ public class SubActivity extends AppCompatActivity
         addbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AddGroup dialog = new AddGroup(mCon, adapter);
-                dialog.show(getSupportFragmentManager(), "todoDialog");
+                Intent i =new Intent(getApplicationContext(), AddGroup.class);
+                startActivity(i);
             }
         });
 

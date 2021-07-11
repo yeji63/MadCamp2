@@ -15,6 +15,7 @@
         android:usesCleartextTraffic="true">
         <activity android:name=".DetailActivity"></activity>
         <activity android:name=".SubActivity" />
+        <activity android:name=".AddGroup" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
