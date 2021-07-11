@@ -5,13 +5,15 @@ public class Listgroup {
     String time;
     String place;
     String headcount;
+    String image;
     //이미지랑 날짜 추가 해야
 
-    public Listgroup(String date, String time, String place, String headcount) {
+    public Listgroup(String date, String time, String place, String headcount, String image) {
         this.date = date;
         this.time = time;
         this.place = place;
         this.headcount = headcount;
+        this.image = image;
     }
 
     public String getDate() {
@@ -44,6 +46,14 @@ public class Listgroup {
 
     public void setHeadcount(String headcount) {
         this.headcount = headcount;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
 }

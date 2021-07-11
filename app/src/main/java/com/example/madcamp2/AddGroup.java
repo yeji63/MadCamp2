@@ -5,8 +5,11 @@ import android.app.AlertDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +24,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
+import com.bumptech.glide.load.engine.bitmap_recycle.ByteArrayAdapter;
+
+import java.io.ByteArrayOutputStream;
 import java.sql.Time;
 import java.util.HashMap;
 import java.util.Locale;
@@ -37,6 +43,7 @@ public class AddGroup extends AppCompatActivity {
     private Retrofit retrofit;
     private RetrofitInterface retrofitInterface;
     private String BASE_URL = "http://192.249.18.145:80";
+    private String image_URL = "http://192.249.18.145:80/imageuploadapp/update.js";
     private final int IMAGE_PICK_GALLERY_CODE = 200;
     private ImageView btn_gallery;
     private int meet_hour, meet_minute;
@@ -83,11 +90,20 @@ public class AddGroup extends AppCompatActivity {
                 retrofitInterface = retrofit.create(RetrofitInterface.class);
                 HashMap<String, String> map = new HashMap<>();
 
+                BitmapDrawable drawable = (BitmapDrawable) btn_gallery.getDrawable();
+                Bitmap image_bitmap = drawable.getBitmap();
+                Bitmap resizebitmap = Bitmap.createScaledBitmap(image_bitmap, 128, 128, true);
+                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                resizebitmap.compress(Bitmap.CompressFormat.JPEG, 60, byteArrayOutputStream);
+                byte[] res = byteArrayOutputStream.toByteArray();
+                String imgstring = Base64.encodeToString(res, Base64.NO_WRAP);
+
                 //date fix
                 map.put("date", et_date.getText().toString());
                 map.put("time", et_time.getText().toString());
                 map.put("place", et_place.getText().toString());
                 map.put("headcount", et_headcount.getText().toString());
+                map.put("image", imgstring);
                 Call<Void> call = retrofitInterface.executeGroupAdd(map);
                 call.enqueue(new Callback<Void>() {
                     @Override

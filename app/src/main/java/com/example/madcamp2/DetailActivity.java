@@ -4,7 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Base64;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -58,6 +61,11 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
                     time.setText(listgroup.getTime());
                     marketname.setText(listgroup.getPlace());
                     date.setText(listgroup.getDate());
+
+                    String getimg= listgroup.getImage();
+                    byte[] decodedString = Base64.decode(getimg, Base64.DEFAULT);
+                    Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                    marketimg.setImageBitmap(decodedByte);
 
                 }
                 else {

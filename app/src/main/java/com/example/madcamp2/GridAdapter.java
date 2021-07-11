@@ -1,6 +1,9 @@
 package com.example.madcamp2;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +11,8 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class GridAdapter extends BaseAdapter {
     ArrayList<Listgroup> groups = new ArrayList<Listgroup>();
@@ -49,11 +54,18 @@ public class GridAdapter extends BaseAdapter {
         TextView timetext = convertView.findViewById(R.id.time);
         TextView placetext = convertView.findViewById(R.id.place);
         TextView headcounttext = convertView.findViewById(R.id.headcount);
+        CircleImageView imageview = convertView.findViewById(R.id.circle_img);
 
         datetext.setText(listgroup.getDate());
         timetext.setText(listgroup.getTime());
         placetext.setText(listgroup.getPlace());
         headcounttext.setText(listgroup.getHeadcount());
+
+        String getimg= listgroup.getImage();
+        byte[] decodedString = Base64.decode(getimg, Base64.DEFAULT);
+        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+        imageview.setImageBitmap(decodedByte);
+
 
         return convertView;
     }
