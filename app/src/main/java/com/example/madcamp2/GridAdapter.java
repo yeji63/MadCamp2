@@ -45,11 +45,15 @@ public class GridAdapter extends BaseAdapter {
             LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.group_card, parent, false);
         }
+        TextView datetext = convertView.findViewById(R.id.date);
         TextView timetext = convertView.findViewById(R.id.time);
         TextView placetext = convertView.findViewById(R.id.place);
+        TextView headcounttext = convertView.findViewById(R.id.headcount);
 
+        datetext.setText(listgroup.getDate());
         timetext.setText(listgroup.getTime());
         placetext.setText(listgroup.getPlace());
+        headcounttext.setText(listgroup.getHeadcount());
 
         return convertView;
     }

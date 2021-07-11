@@ -23,15 +23,25 @@
             android:src="@color/black" />
 
         <TextView
-            android:id="@+id/time"
+            android:id="@+id/date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:fontFamily="sans-serif-black"
-            android:text="Time"
+            android:text="date"
             android:textColor="#000000"
             android:textSize="20sp"
             android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20sp"
+            android:text="time"
+            android:textColor="#000000"
+            android:textSize="17sp" />
 
         <TextView
             android:id="@+id/place"
@@ -40,6 +50,16 @@
             android:layout_gravity="center"
             android:layout_marginTop="20sp"
             android:text="place"
+            android:textColor="#000000"
+            android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/headcount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20sp"
+            android:text="headcount"
             android:textColor="#000000"
             android:textSize="17sp" />
 

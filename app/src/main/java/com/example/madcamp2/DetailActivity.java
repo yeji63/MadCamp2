@@ -57,6 +57,8 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
                     Listgroup listgroup = fromdb.get(position);
                     time.setText(listgroup.getTime());
                     marketname.setText(listgroup.getPlace());
+                    date.setText(listgroup.getDate());
+
                 }
                 else {
                     Toast.makeText(DetailActivity.this, "test", Toast.LENGTH_LONG).show();
