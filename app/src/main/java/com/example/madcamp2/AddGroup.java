@@ -115,7 +115,7 @@ public class AddGroup extends AppCompatActivity {
                 HashMap<String, String> map = new HashMap<>();
 
                 if(gallerypick == 0) {
-                    btn_gallery.setImageResource(R.drawable.dish);
+                    btn_gallery.setImageResource(R.drawable.rice);
                 }
 
                 BitmapDrawable drawable = (BitmapDrawable) btn_gallery.getDrawable();

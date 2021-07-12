@@ -8,9 +8,12 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Address;
 import android.location.Geocoder;
+import android.media.Image;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -55,6 +58,8 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
         TextView date = (TextView) findViewById(R.id.date);
         marketname = (TextView) findViewById(R.id.marketname);
         TextView time = (TextView) findViewById(R.id.time);
+        ImageButton chat = (ImageButton) findViewById(R.id.chat);
+        ImageButton money = (ImageButton) findViewById(R.id.money);
 
         Intent i = getIntent();
         position = i.getExtras().getInt("id");
@@ -91,6 +96,14 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
             @Override
             public void onFailure(Call<ArrayList<Listgroup>> callgroupget, Throwable t) {
                 Toast.makeText(DetailActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+
+        chat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), ChatMainActivity.class);
+                startActivity(i);
             }
         });
 
