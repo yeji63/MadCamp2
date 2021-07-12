@@ -5,11 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +37,7 @@ public class SubActivity extends AppCompatActivity
     private static Context mCon;
     private GridAdapter adapter;
     private ListView listView;
+    private ArrayList<Listgroup> fromdb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -111,6 +114,61 @@ public class SubActivity extends AppCompatActivity
                 });
             }
         });
+
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                PopupMenu popup = new PopupMenu(SubActivity.this, view);
+                getMenuInflater().inflate(R.menu.list_menu, popup.getMenu());
+
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        Listgroup listgroup = fromdb.get(position);
+                        if(listgroup.getMaker().equals(strNick)) {
+                            retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
+                            retrofitInterface = retrofit.create(RetrofitInterface.class);
+                            HashMap<String, String> map = new HashMap<>();
+
+                            map.put("date", listgroup.getDate());
+                            map.put("time", listgroup.getTime());
+                            map.put("place", listgroup.getPlace());
+                            map.put("headcount", listgroup.getHeadcount());
+                            map.put("maker", listgroup.getMaker());
+
+
+                            Call<Void> call = retrofitInterface.executeGroupDelete(map);
+                            call.enqueue(new Callback<Void>() {
+                                @Override
+                                public void onResponse(Call<Void> call, Response<Void> response) {
+                                    if (response.code() == 200) {
+                                        Toast.makeText(SubActivity.this, "delete group successfully", Toast.LENGTH_LONG).show();
+                                    } else if (response.code() == 400) {
+                                        Toast.makeText(SubActivity.this, "fail to delete", Toast.LENGTH_LONG).show();
+                                    }
+                                }
+                                @Override
+                                public void onFailure(Call<Void> call, Throwable t) {
+                                    Toast.makeText(SubActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+                                }
+                            });
+                            return true;
+                        }
+                        else {
+                            Toast.makeText(SubActivity.this, "Not a maker", Toast.LENGTH_LONG).show();
+                        }
+
+                        return false;
+                    }
+                });
+
+                popup.show();
+                return true;
+            }
+        });
+
+
+
     }
 
     private void AddGroup() {
@@ -121,7 +179,7 @@ public class SubActivity extends AppCompatActivity
             @Override
             public void onResponse(Call<ArrayList<Listgroup>> callgroupget, Response<ArrayList<Listgroup>> response) {
                 if (response.code() == 200) {
-                    ArrayList<Listgroup> fromdb = response.body();
+                    fromdb = response.body();
                     //gridview
                     adapter = new GridAdapter(fromdb, strNick);
                     listView.setAdapter(adapter);

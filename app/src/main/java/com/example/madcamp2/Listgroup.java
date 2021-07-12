@@ -11,14 +11,16 @@ public class Listgroup {
     String image;
     //이미지랑 날짜 추가 해야
     ArrayList<String> participants;
+    String maker;
 
-    public Listgroup(String date, String time, String place, String headcount, String image, ArrayList<String> participants) {
+    public Listgroup(String date, String time, String place, String headcount, String image, ArrayList<String> participants, String maker) {
         this.date = date;
         this.time = time;
         this.place = place;
         this.headcount = headcount;
         this.image = image;
         this.participants = participants;
+        this.maker = maker;
     }
 
     public String getDate() {
@@ -64,6 +66,14 @@ public class Listgroup {
     public ArrayList<String> getParticipants() {return participants;}
 
     public void setParticipants(ArrayList<String> Participants) { this.participants = participants; }
+
+    public String getMaker() {
+        return maker;
+    }
+
+    public void setMaker(String maker) {
+        this.maker = maker;
+    }
 
 
 }

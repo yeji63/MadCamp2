@@ -99,6 +99,7 @@
             android:layout_width="60dp"
             android:layout_height="50dp"
             android:layout_gravity="end"
+            android:focusable="false"
             android:src="@drawable/enter"
             android:text="참여" />
 

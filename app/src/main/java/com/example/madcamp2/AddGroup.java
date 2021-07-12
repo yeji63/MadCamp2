@@ -133,6 +133,7 @@ public class AddGroup extends AppCompatActivity {
                 map.put("place", et_place.getText().toString());
                 map.put("headcount", et_headcount.getText().toString());
                 map.put("image", imgstring);
+                map.put("maker", accountnick);
                 Call<Void> call = retrofitInterface.executeGroupAdd(map);
                 call.enqueue(new Callback<Void>() {
                     @Override

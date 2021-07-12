@@ -25,6 +25,9 @@ public interface RetrofitInterface {
     @POST("/addaccount")
     Call<Void> executeAccountAdd (@Body HashMap<String, String> map);
 
+    @POST("/deletegroup")
+    Call<Void> executeGroupDelete(@Body HashMap<String, String> map);
+
     @GET("/getgroup")
     Call<ArrayList<Listgroup>> executeGroupGet();
 
