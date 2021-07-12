@@ -1,6 +1,5 @@
 package com.example.madcamp2;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;

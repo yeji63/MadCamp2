@@ -6,8 +6,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.util.Base64;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,7 +22,9 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -28,13 +33,17 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 
-public class DetailActivity extends AppCompatActivity implements OnMapReadyCallback{
+public class DetailActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private Retrofit retrofit;
     private RetrofitInterface retrofitInterface;
     private String BASE_URL = "http://192.249.18.145:80";
 
     private GoogleMap mMap;
+    private Geocoder geocoder;
+
+    TextView marketname;
+    int position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,11 +52,11 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
 
         ImageView marketimg = (ImageView) findViewById(R.id.marketimg);
         TextView date = (TextView) findViewById(R.id.date);
-        TextView marketname = (TextView) findViewById(R.id.marketname);
+        marketname = (TextView) findViewById(R.id.marketname);
         TextView time = (TextView) findViewById(R.id.time);
 
         Intent i = getIntent();
-        int position = i.getExtras().getInt("id");
+        position = i.getExtras().getInt("id");
 
         retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
         retrofitInterface = retrofit.create(RetrofitInterface.class);
@@ -60,18 +69,18 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
                     Listgroup listgroup = fromdb.get(position);
                     time.setText(listgroup.getTime());
                     marketname.setText(listgroup.getPlace());
+                    Log.d("yejieyejieyeji", "" + marketname.getText());
                     date.setText(listgroup.getDate());
 
-                    String getimg= listgroup.getImage();
+                    String getimg = listgroup.getImage();
                     byte[] decodedString = Base64.decode(getimg, Base64.DEFAULT);
                     Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
                     marketimg.setImageBitmap(decodedByte);
-
-                }
-                else {
+                } else {
                     Toast.makeText(DetailActivity.this, "test", Toast.LENGTH_LONG).show();
                 }
             }
+
             @Override
             public void onFailure(Call<ArrayList<Listgroup>> callgroupget, Throwable t) {
                 Toast.makeText(DetailActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
@@ -89,13 +98,52 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
         mMap = googleMap;
+        geocoder = new Geocoder(DetailActivity.this);
 
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions()
-                .position(sydney)
-                .title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        List<Address> addressList = null;
 
+        try {
+            // editText에 입력한 텍스트(주소, 지역, 장소 등)을 지오 코딩을 이용해 변환
+            Log.d("Ummmm:", marketname.getText().toString());
+            addressList = geocoder.getFromLocationName(
+                    marketname.getText().toString(), // 주소
+                    10); // 최대 검색 결과 개수
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Log.d("어드레스리스트", ""+addressList);
+
+        System.out.println(addressList.get(0).toString());
+        // 콤마를 기준으로 split
+        String[] splitStr = addressList.get(0).toString().split(",");
+        String address = splitStr[0].substring(splitStr[0].indexOf("\"") + 1, splitStr[0].length() - 2); // 주소
+        System.out.println(address);
+
+        String latitude = splitStr[10].substring(splitStr[10].indexOf("=") + 1); // 위도
+        String longitude = splitStr[12].substring(splitStr[12].indexOf("=") + 1); // 경도
+        System.out.println(latitude);
+        System.out.println(longitude);
+
+        // 좌표(위도, 경도) 생성
+        LatLng point = new LatLng(Double.parseDouble(latitude), Double.parseDouble(longitude));
+        // 마커 생성
+        MarkerOptions mOptions2 = new MarkerOptions();
+        mOptions2.title("search result");
+        mOptions2.snippet(address);
+        mOptions2.position(point);
+        // 마커 추가
+        mMap.addMarker(mOptions2);
+        // 해당 좌표로 화면 줌
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(point, 15));
     }
+
+
+//        // Add a marker in Sydney and move the camera
+//        LatLng sydney = new LatLng(-34, 151);
+//        mMap.addMarker(new MarkerOptions()
+//                .position(sydney)
+//                .title("Marker in Sydney"));
+//        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+//
+//    }
 }

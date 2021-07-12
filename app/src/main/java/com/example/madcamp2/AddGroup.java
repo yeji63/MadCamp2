@@ -10,6 +10,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,10 +26,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
 import com.bumptech.glide.load.engine.bitmap_recycle.ByteArrayAdapter;
+import com.google.android.gms.common.api.Status;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.api.net.PlacesClient;
+import com.google.android.libraries.places.widget.Autocomplete;
+import com.google.android.libraries.places.widget.AutocompleteActivity;
+import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
 
 import java.io.ByteArrayOutputStream;
 import java.sql.Time;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 
 import retrofit2.Call;
@@ -37,7 +47,10 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static com.google.android.libraries.places.api.model.Place.*;
+
 public class AddGroup extends AppCompatActivity {
+    private static final String TAG = "google map log tag ::::";
     private Context mCon;
 
     private Retrofit retrofit;
@@ -54,15 +67,15 @@ public class AddGroup extends AppCompatActivity {
     private Button btn_cancel;
     private Button btn_submit;
 
-
-//    public AddGroup(Context context) {
-//        this.mCon = context;
-//    }
+    private static int AUTOCOMPLETE_REQUEST_CODE = 63;
 
     @Override
     public void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_group);
+
+        Places.initialize(getApplicationContext(), "AIzaSyD5Z1N-Vq1ONJPxkSBSoPPpp4VgOAkT9zQ");
+        PlacesClient placesClient = Places.createClient(this);
 
         et_date = findViewById(R.id.date);
         et_time = findViewById(R.id.et_time);
@@ -123,6 +136,15 @@ public class AddGroup extends AppCompatActivity {
             }
         });
 
+        et_place.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                List<Field> fields = Arrays.asList(Field.ID, Field.NAME, Field.ADDRESS, Field.LAT_LNG);
+                Intent intent = new Autocomplete.IntentBuilder(AutocompleteActivityMode.FULLSCREEN, fields).setCountry("KR")
+                        .build(getApplicationContext());
+                startActivityForResult(intent, AUTOCOMPLETE_REQUEST_CODE);
+            }
+        });
     }
 
     private void openGalleryIntent() {
@@ -137,6 +159,21 @@ public class AddGroup extends AppCompatActivity {
         if (requestCode == IMAGE_PICK_GALLERY_CODE && resultCode == Activity.RESULT_OK && data != null && data.getData() != null) {
             Uri selectedImageUri = data.getData();
             btn_gallery.setImageURI(selectedImageUri);
+        }
+
+        //place edittext
+        if (requestCode == AUTOCOMPLETE_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                Place place = Autocomplete.getPlaceFromIntent(data);
+                Log.i(TAG, "Place: " + place.getName() + ", " + place.getId());
+            } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
+                // TODO: Handle the error.
+                Status status = Autocomplete.getStatusFromIntent(data);
+                Log.i(TAG, status.getStatusMessage());
+            } else if (resultCode == RESULT_CANCELED) {
+                // The user canceled the operation.
+            }
+            return;
         }
     }
 
@@ -157,4 +194,13 @@ public class AddGroup extends AppCompatActivity {
         timePickerDialog.setTitle("Select Time");
         timePickerDialog.show();
     }
+
+//    public void startAutocompleteActivity(View view) {
+//        Intent intent = new Autocomplete.IntentBuilder(AutocompleteActivityMode.FULLSCREEN, //overlay랑 fullscreen 선택
+//                Arrays.asList(Field.ID, Field.NAME))
+//                .setCountry("KR")
+//                .build(this);
+//                startActivityForResult(intent, AUTOCOMPLETE_REQUEST_CODE);
+//    }
+
 }
