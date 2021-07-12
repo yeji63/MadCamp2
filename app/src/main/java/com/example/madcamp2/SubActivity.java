@@ -35,7 +35,6 @@ public class SubActivity extends AppCompatActivity
     private static Context mCon;
     private GridAdapter adapter;
     private ListView listView;
-    private Button enter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -51,7 +50,6 @@ public class SubActivity extends AppCompatActivity
         TextView tv_nick = findViewById(R.id.tv_nickName);
         ImageView iv_profile = findViewById(R.id.iv_profile);
 
-        enter = (Button) findViewById(R.id.enter);
 
         // 닉네임 set
         tv_nick.setText(strNick);
@@ -83,15 +81,6 @@ public class SubActivity extends AppCompatActivity
 
         //gridview(init)
         AddGroup();
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent i = new Intent(getApplicationContext(), DetailActivity.class);
-                i.putExtra("id", position);
-                startActivity(i);
-            }
-        });
 
 
         //add group dialog
@@ -134,7 +123,7 @@ public class SubActivity extends AppCompatActivity
                 if (response.code() == 200) {
                     ArrayList<Listgroup> fromdb = response.body();
                     //gridview
-                    adapter = new GridAdapter(fromdb);
+                    adapter = new GridAdapter(fromdb, strNick);
                     listView.setAdapter(adapter);
                 }
                 else {

@@ -15,40 +15,7 @@
         android:orientation="horizontal"
         android:padding="20dp">
 
-<<<<<<< HEAD
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/circle_img"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_gravity="center_vertical"
-            android:background="#FFFFFF"/>
-
-        <TextView
-            android:id="@+id/date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:fontFamily="sans-serif-black"
-            android:text="date"
-            android:textColor="#000000"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="20sp"
-            android:text="time"
-            android:textColor="#000000"
-            android:textSize="17sp" />
-
-        <TextView
-            android:id="@+id/place"
-=======
         <LinearLayout
->>>>>>> upstream/main
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
