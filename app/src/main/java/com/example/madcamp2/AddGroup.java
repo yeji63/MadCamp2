@@ -101,9 +101,9 @@ public class AddGroup extends AppCompatActivity {
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (selectedImageUri == null){
-                    btn_gallery.setImageResource(R.drawable.dish);
-                }
+//                if (selectedImageUri == null){
+//                    btn_gallery.setImageResource(R.drawable.dish);
+//                }
 
                 retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
                 retrofitInterface = retrofit.create(RetrofitInterface.class);
