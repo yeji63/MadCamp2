@@ -41,9 +41,11 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
 
     private GoogleMap mMap;
     private Geocoder geocoder;
+    private int check = 0;
 
     TextView marketname;
     int position;
+    String[] adr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,11 +67,14 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
             @Override
             public void onResponse(Call<ArrayList<Listgroup>> callgroupget, Response<ArrayList<Listgroup>> response) {
                 if (response.code() == 200) {
+                    check = 1;
                     ArrayList<Listgroup> fromdb = response.body();
                     Listgroup listgroup = fromdb.get(position);
                     time.setText(listgroup.getTime());
                     marketname.setText(listgroup.getPlace());
                     Log.d("yejieyejieyeji", "" + marketname.getText());
+                    adr[position] = listgroup.getPlace();
+//                    Log.d("yjyjyjyj", "" + adr);
                     date.setText(listgroup.getDate());
 
                     String getimg = listgroup.getImage();
@@ -86,8 +91,6 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
                 Toast.makeText(DetailActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
-
-
         // google map
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -101,12 +104,37 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
         geocoder = new Geocoder(DetailActivity.this);
 
         List<Address> addressList = null;
+        final String[] str = new String[1];
+
+        retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
+        retrofitInterface = retrofit.create(RetrofitInterface.class);
+        Call<ArrayList<Listgroup>> callgroupget = retrofitInterface.executeGroupGet();
+        callgroupget.enqueue(new Callback<ArrayList<Listgroup>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Listgroup>> callgroupget, Response<ArrayList<Listgroup>> response) {
+                if (response.code() == 200) {
+                    check = 1;
+                    ArrayList<Listgroup> fromdb = response.body();
+                    Listgroup listgroup = fromdb.get(position);
+                    str[0] = listgroup.getPlace();
+                    adr[position] = listgroup.getPlace();
+                } else {
+                    Toast.makeText(DetailActivity.this, "test", Toast.LENGTH_LONG).show();
+                }
+            }
+            @Override
+            public void onFailure(Call<ArrayList<Listgroup>> callgroupget, Throwable t) {
+                Toast.makeText(DetailActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+
+
 
         try {
             // editText에 입력한 텍스트(주소, 지역, 장소 등)을 지오 코딩을 이용해 변환
             Log.d("Ummmm:", marketname.getText().toString());
             addressList = geocoder.getFromLocationName(
-                    marketname.getText().toString(), // 주소
+                    str[0], // 주소
                     10); // 최대 검색 결과 개수
         } catch (IOException e) {
             e.printStackTrace();

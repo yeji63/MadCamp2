@@ -140,7 +140,7 @@ public class AddGroup extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 List<Field> fields = Arrays.asList(Field.ID, Field.NAME, Field.ADDRESS, Field.LAT_LNG);
-                Intent intent = new Autocomplete.IntentBuilder(AutocompleteActivityMode.FULLSCREEN, fields).setCountry("KR")
+                Intent intent = new Autocomplete.IntentBuilder(AutocompleteActivityMode.OVERLAY, fields).setCountry("KR")
                         .build(getApplicationContext());
                 startActivityForResult(intent, AUTOCOMPLETE_REQUEST_CODE);
             }
@@ -166,6 +166,7 @@ public class AddGroup extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 Place place = Autocomplete.getPlaceFromIntent(data);
                 Log.i(TAG, "Place: " + place.getName() + ", " + place.getId());
+                et_place.setText(place.getName());
             } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
                 // TODO: Handle the error.
                 Status status = Autocomplete.getStatusFromIntent(data);
