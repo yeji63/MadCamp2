@@ -56,7 +56,6 @@ public class AddGroup extends AppCompatActivity {
     private Retrofit retrofit;
     private RetrofitInterface retrofitInterface;
     private String BASE_URL = "http://192.249.18.145:80";
-    private String image_URL = "http://192.249.18.145:80/imageuploadapp/update.js";
     private final int IMAGE_PICK_GALLERY_CODE = 200;
     private ImageView btn_gallery;
     private int meet_hour, meet_minute;
@@ -66,6 +65,7 @@ public class AddGroup extends AppCompatActivity {
     private EditText et_headcount;
     private Button btn_cancel;
     private Button btn_submit;
+    private int gallerypick;
 
     Uri selectedImageUri;
 
@@ -79,6 +79,8 @@ public class AddGroup extends AppCompatActivity {
         Places.initialize(getApplicationContext(), "AIzaSyD5Z1N-Vq1ONJPxkSBSoPPpp4VgOAkT9zQ");
         PlacesClient placesClient = Places.createClient(this);
 
+        gallerypick = 0;
+
         et_date = findViewById(R.id.date);
         et_time = findViewById(R.id.et_time);
         et_place = findViewById(R.id.et_place);
@@ -86,6 +88,7 @@ public class AddGroup extends AppCompatActivity {
         btn_cancel = findViewById(R.id.bt_link_cancel);
         btn_submit = findViewById(R.id.bt_link_submit);
         btn_gallery = findViewById(R.id.profileIv);
+
 
         btn_gallery.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,13 +104,14 @@ public class AddGroup extends AppCompatActivity {
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                if (selectedImageUri == null){
-//                    btn_gallery.setImageResource(R.drawable.dish);
-//                }
 
                 retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
                 retrofitInterface = retrofit.create(RetrofitInterface.class);
                 HashMap<String, String> map = new HashMap<>();
+
+                if(gallerypick == 0) {
+                    btn_gallery.setImageResource(R.drawable.dish);
+                }
 
                 BitmapDrawable drawable = (BitmapDrawable) btn_gallery.getDrawable();
                 Bitmap image_bitmap = drawable.getBitmap();
@@ -165,6 +169,7 @@ public class AddGroup extends AppCompatActivity {
         if (requestCode == IMAGE_PICK_GALLERY_CODE && resultCode == Activity.RESULT_OK && data != null && data.getData() != null) {
             selectedImageUri = data.getData();
             btn_gallery.setImageURI(selectedImageUri);
+            gallerypick = 1;
         }
 
         //place edittext
