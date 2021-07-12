@@ -5,12 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,13 +28,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SubActivity extends AppCompatActivity
 {
-    private String strNick, strProfileImg, strEmail;
+    private String strNick, strProfileImg;
     private Retrofit retrofit;
     private RetrofitInterface retrofitInterface;
     private String BASE_URL = "http://192.249.18.145:80";
     private static Context mCon;
     private GridAdapter adapter;
-    private GridView gridView;
+    private ListView listView;
+    private Button enter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -50,6 +50,8 @@ public class SubActivity extends AppCompatActivity
 
         TextView tv_nick = findViewById(R.id.tv_nickName);
         ImageView iv_profile = findViewById(R.id.iv_profile);
+
+        enter = (Button) findViewById(R.id.enter);
 
         // 닉네임 set
         tv_nick.setText(strNick);
@@ -77,12 +79,12 @@ public class SubActivity extends AppCompatActivity
             }
         });
 
-        gridView = findViewById(R.id.gridView);
+        listView = findViewById(R.id.listView);
 
         //gridview(init)
         AddGroup();
 
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent i = new Intent(getApplicationContext(), DetailActivity.class);
@@ -133,15 +135,14 @@ public class SubActivity extends AppCompatActivity
                     ArrayList<Listgroup> fromdb = response.body();
                     //gridview
                     adapter = new GridAdapter(fromdb);
-                    gridView.setAdapter(adapter);
+                    listView.setAdapter(adapter);
                 }
                 else {
-                    Toast.makeText(SubActivity.this, "test1", Toast.LENGTH_LONG).show();
+                    Toast.makeText(SubActivity.this, "test", Toast.LENGTH_LONG).show();
                 }
             }
             @Override
             public void onFailure(Call<ArrayList<Listgroup>> callgroupget, Throwable t) {
-                Toast.makeText(SubActivity.this, "test2", Toast.LENGTH_LONG).show();
                 Toast.makeText(SubActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });

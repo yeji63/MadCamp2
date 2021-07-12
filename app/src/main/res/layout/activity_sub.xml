@@ -55,16 +55,17 @@
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteY="10dp" />
 
-    <GridView
-        android:id="@+id/gridView"
+    <ListView
+        android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:numColumns="auto_fit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:focusable="true"
         android:layout_marginTop="70dp">
 
 
-    </GridView>
+    </ListView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
