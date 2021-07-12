@@ -1,5 +1,8 @@
 package com.example.madcamp2;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 public class Listgroup {
     String date;
     String time;
@@ -7,13 +10,15 @@ public class Listgroup {
     String headcount;
     String image;
     //이미지랑 날짜 추가 해야
+    ArrayList<String> participants;
 
-    public Listgroup(String date, String time, String place, String headcount, String image) {
+    public Listgroup(String date, String time, String place, String headcount, String image, ArrayList<String> participants) {
         this.date = date;
         this.time = time;
         this.place = place;
         this.headcount = headcount;
         this.image = image;
+        this.participants = participants;
     }
 
     public String getDate() {
@@ -55,5 +60,10 @@ public class Listgroup {
     public void setImage(String image) {
         this.image = image;
     }
+
+    public ArrayList<String> getParticipants() {return participants;}
+
+    public void setParticipants(ArrayList<String> Participants) { this.participants = participants; }
+
 
 }

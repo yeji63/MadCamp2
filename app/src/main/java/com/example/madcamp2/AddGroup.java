@@ -36,6 +36,7 @@ import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 
 import java.io.ByteArrayOutputStream;
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -66,6 +67,7 @@ public class AddGroup extends AppCompatActivity {
     private Button btn_cancel;
     private Button btn_submit;
     private int gallerypick;
+    private String accountnick;
 
     Uri selectedImageUri;
 
@@ -75,6 +77,9 @@ public class AddGroup extends AppCompatActivity {
     public void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_group);
+
+        Intent addintent = getIntent();
+        accountnick =  addintent.getStringExtra("account nickname");
 
         Places.initialize(getApplicationContext(), "AIzaSyD5Z1N-Vq1ONJPxkSBSoPPpp4VgOAkT9zQ");
         PlacesClient placesClient = Places.createClient(this);
@@ -122,6 +127,7 @@ public class AddGroup extends AppCompatActivity {
                 String imgstring = Base64.encodeToString(res, Base64.NO_WRAP);
 
                 //date fix
+                map.put("nickname", accountnick);
                 map.put("date", et_date.getText().toString());
                 map.put("time", et_time.getText().toString());
                 map.put("place", et_place.getText().toString());
@@ -142,6 +148,8 @@ public class AddGroup extends AppCompatActivity {
                         Toast.makeText(AddGroup.this, t.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 });
+
+
                 finish();
             }
         });

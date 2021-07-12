@@ -20,7 +20,8 @@
             android:id="@+id/circle_img"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:layout_gravity="center_vertical" />
+            android:layout_gravity="center_vertical"
+            android:background="#FFFFFF"/>
 
         <TextView
             android:id="@+id/date"

@@ -98,6 +98,7 @@ public class SubActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 Intent i =new Intent(getApplicationContext(), AddGroup.class);
+                i.putExtra("account nickname", strNick);
                 startActivity(i);
             }
         });
@@ -135,11 +136,12 @@ public class SubActivity extends AppCompatActivity
                     gridView.setAdapter(adapter);
                 }
                 else {
-                    Toast.makeText(SubActivity.this, "test", Toast.LENGTH_LONG).show();
+                    Toast.makeText(SubActivity.this, "test1", Toast.LENGTH_LONG).show();
                 }
             }
             @Override
             public void onFailure(Call<ArrayList<Listgroup>> callgroupget, Throwable t) {
+                Toast.makeText(SubActivity.this, "test2", Toast.LENGTH_LONG).show();
                 Toast.makeText(SubActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
