@@ -67,6 +67,8 @@ public class AddGroup extends AppCompatActivity {
     private Button btn_cancel;
     private Button btn_submit;
 
+    Uri selectedImageUri;
+
     private static int AUTOCOMPLETE_REQUEST_CODE = 63;
 
     @Override
@@ -99,6 +101,10 @@ public class AddGroup extends AppCompatActivity {
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (selectedImageUri == null){
+                    btn_gallery.setImageResource(R.drawable.dish);
+                }
+
                 retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
                 retrofitInterface = retrofit.create(RetrofitInterface.class);
                 HashMap<String, String> map = new HashMap<>();
@@ -157,7 +163,7 @@ public class AddGroup extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == IMAGE_PICK_GALLERY_CODE && resultCode == Activity.RESULT_OK && data != null && data.getData() != null) {
-            Uri selectedImageUri = data.getData();
+            selectedImageUri = data.getData();
             btn_gallery.setImageURI(selectedImageUri);
         }
 
