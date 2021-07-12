@@ -131,7 +131,6 @@ public class SubActivity extends AppCompatActivity
                 if (response.code() == 200) {
                     ArrayList<Listgroup> fromdb = response.body();
                     //gridview
-
                     adapter = new GridAdapter(fromdb);
                     gridView.setAdapter(adapter);
                 }

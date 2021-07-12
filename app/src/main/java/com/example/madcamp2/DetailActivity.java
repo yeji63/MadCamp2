@@ -41,7 +41,6 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
 
     private GoogleMap mMap;
     private Geocoder geocoder;
-    private int check = 0;
 
     TextView marketname;
     int position;
@@ -67,20 +66,23 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
             @Override
             public void onResponse(Call<ArrayList<Listgroup>> callgroupget, Response<ArrayList<Listgroup>> response) {
                 if (response.code() == 200) {
-                    check = 1;
                     ArrayList<Listgroup> fromdb = response.body();
                     Listgroup listgroup = fromdb.get(position);
                     time.setText(listgroup.getTime());
                     marketname.setText(listgroup.getPlace());
                     Log.d("yejieyejieyeji", "" + marketname.getText());
-                    adr[position] = listgroup.getPlace();
-//                    Log.d("yjyjyjyj", "" + adr);
+
                     date.setText(listgroup.getDate());
 
                     String getimg = listgroup.getImage();
                     byte[] decodedString = Base64.decode(getimg, Base64.DEFAULT);
                     Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
                     marketimg.setImageBitmap(decodedByte);
+
+                    // google map
+                    SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                            .findFragmentById(R.id.map);
+                    mapFragment.getMapAsync(DetailActivity.this::onMapReady);
                 } else {
                     Toast.makeText(DetailActivity.this, "test", Toast.LENGTH_LONG).show();
                 }
@@ -91,10 +93,6 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
                 Toast.makeText(DetailActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
-        // google map
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
 
     }
 
@@ -113,11 +111,9 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
             @Override
             public void onResponse(Call<ArrayList<Listgroup>> callgroupget, Response<ArrayList<Listgroup>> response) {
                 if (response.code() == 200) {
-                    check = 1;
                     ArrayList<Listgroup> fromdb = response.body();
                     Listgroup listgroup = fromdb.get(position);
                     str[0] = listgroup.getPlace();
-                    adr[position] = listgroup.getPlace();
                 } else {
                     Toast.makeText(DetailActivity.this, "test", Toast.LENGTH_LONG).show();
                 }
@@ -129,17 +125,14 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
         });
 
 
-
         try {
             // editText에 입력한 텍스트(주소, 지역, 장소 등)을 지오 코딩을 이용해 변환
-            Log.d("Ummmm:", marketname.getText().toString());
             addressList = geocoder.getFromLocationName(
-                    str[0], // 주소
+                    marketname.getText().toString(), // 주소
                     10); // 최대 검색 결과 개수
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Log.d("어드레스리스트", ""+addressList);
 
         System.out.println(addressList.get(0).toString());
         // 콤마를 기준으로 split
