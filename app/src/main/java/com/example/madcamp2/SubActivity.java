@@ -28,13 +28,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SubActivity extends AppCompatActivity
 {
-    private String strNick, strProfileImg, strEmail;
+    private String strNick, strProfileImg;
     private Retrofit retrofit;
     private RetrofitInterface retrofitInterface;
     private String BASE_URL = "http://192.249.18.145:80";
     private static Context mCon;
     private GridAdapter adapter;
     private ListView listView;
+    private Button enter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -49,6 +50,8 @@ public class SubActivity extends AppCompatActivity
 
         TextView tv_nick = findViewById(R.id.tv_nickName);
         ImageView iv_profile = findViewById(R.id.iv_profile);
+
+        enter = (Button) findViewById(R.id.enter);
 
         // 닉네임 set
         tv_nick.setText(strNick);
