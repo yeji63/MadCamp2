@@ -124,40 +124,50 @@ public class SubActivity extends AppCompatActivity
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
-                        Listgroup listgroup = fromdb.get(position);
-                        if(listgroup.getMaker().equals(strNick)) {
-                            retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
-                            retrofitInterface = retrofit.create(RetrofitInterface.class);
-                            HashMap<String, String> map = new HashMap<>();
+                        switch (item.getItemId()) {
+                            case R.id.delete:
+                                Listgroup listgroup = fromdb.get(position);
+                                if(listgroup.getMaker().equals(strNick)) {
+                                    retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
+                                    retrofitInterface = retrofit.create(RetrofitInterface.class);
+                                    HashMap<String, String> map = new HashMap<>();
+                                    map.put("date", listgroup.getDate());
+                                    map.put("time", listgroup.getTime());
+                                    map.put("place", listgroup.getPlace());
+                                    map.put("headcount", listgroup.getHeadcount());
+                                    map.put("maker", listgroup.getMaker());
 
-                            map.put("date", listgroup.getDate());
-                            map.put("time", listgroup.getTime());
-                            map.put("place", listgroup.getPlace());
-                            map.put("headcount", listgroup.getHeadcount());
-                            map.put("maker", listgroup.getMaker());
-
-
-                            Call<Void> call = retrofitInterface.executeGroupDelete(map);
-                            call.enqueue(new Callback<Void>() {
-                                @Override
-                                public void onResponse(Call<Void> call, Response<Void> response) {
-                                    if (response.code() == 200) {
-                                        Toast.makeText(SubActivity.this, "delete group successfully", Toast.LENGTH_LONG).show();
-                                    } else if (response.code() == 400) {
-                                        Toast.makeText(SubActivity.this, "fail to delete", Toast.LENGTH_LONG).show();
-                                    }
+                                    Call<Void> call = retrofitInterface.executeGroupDelete(map);
+                                    call.enqueue(new Callback<Void>() {
+                                        @Override
+                                        public void onResponse(Call<Void> call, Response<Void> response) {
+                                            if (response.code() == 200) {
+                                                Toast.makeText(SubActivity.this, "delete group successfully", Toast.LENGTH_LONG).show();
+                                            } else if (response.code() == 400) {
+                                                Toast.makeText(SubActivity.this, "fail to delete", Toast.LENGTH_LONG).show();
+                                            }
+                                        }
+                                        @Override
+                                        public void onFailure(Call<Void> call, Throwable t) {
+                                            Toast.makeText(SubActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+                                        }
+                                    });
+                                    return true;
                                 }
-                                @Override
-                                public void onFailure(Call<Void> call, Throwable t) {
-                                    Toast.makeText(SubActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+                                else {
+                                    Toast.makeText(SubActivity.this, "Not a maker", Toast.LENGTH_LONG).show();
                                 }
-                            });
-                            return true;
-                        }
-                        else {
-                            Toast.makeText(SubActivity.this, "Not a maker", Toast.LENGTH_LONG).show();
-                        }
 
+                                break;
+
+                            case R.id.participants:
+                                Toast.makeText(SubActivity.this, "Test111", Toast.LENGTH_LONG).show();
+                                Listgroup group = fromdb.get(position);
+                                ParticipantsFragment dialog = new ParticipantsFragment(mCon, group);
+                                dialog.show(getSupportFragmentManager(), "Participants list");
+
+                                break;
+                        }
                         return false;
                     }
                 });
