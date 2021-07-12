@@ -2,8 +2,11 @@ package com.example.madcamp2;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Address;
@@ -47,7 +50,7 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
 
     TextView marketname;
     int position;
-    String[] adr;
+    String nickname;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +66,7 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
 
         Intent i = getIntent();
         position = i.getExtras().getInt("id");
+        nickname = i.getExtras().getString("nickname");
 
         retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
         retrofitInterface = retrofit.create(RetrofitInterface.class);
@@ -99,10 +103,15 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
             }
         });
 
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED)
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 10);
+
         chat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), ChatMainActivity.class);
+                Intent i = new Intent(getApplicationContext(), ChatActivity.class);
+                i.putExtra("name", nickname);
                 startActivity(i);
             }
         });

@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -71,7 +72,7 @@ public class GridAdapter extends BaseAdapter {
         TextView headcounttext = convertView.findViewById(R.id.headcount);
         CircleImageView imageview = convertView.findViewById(R.id.circle_img);
         TextView now = convertView.findViewById(R.id.now);
-        Button enter = convertView.findViewById(R.id.enter);
+        ImageView enter = convertView.findViewById(R.id.enter);
 
         datetext.setText(listgroup.getDate());
         timetext.setText(listgroup.getTime());

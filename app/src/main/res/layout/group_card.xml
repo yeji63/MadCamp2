@@ -24,7 +24,8 @@
                 android:id="@+id/circle_img"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:layout_gravity="center_vertical" />
+                android:layout_gravity="center_vertical"
+                android:background="@color/white"/>
 
 
             <LinearLayout
@@ -93,12 +94,13 @@
 
         </LinearLayout>
 
-        <Button
+        <ImageView
             android:id="@+id/enter"
             android:layout_width="60dp"
             android:layout_height="50dp"
             android:layout_gravity="end"
             android:focusable="false"
+            android:src="@drawable/enter"
             android:text="참여" />
 
     </LinearLayout>
