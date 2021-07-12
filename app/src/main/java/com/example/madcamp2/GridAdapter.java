@@ -86,6 +86,8 @@ public class GridAdapter extends BaseAdapter {
         imageview.setImageBitmap(decodedByte);
 
 
+
+
         enter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,6 +96,8 @@ public class GridAdapter extends BaseAdapter {
                 HashMap<String, String> map = new HashMap<>();
                 map.put("nickname", accountnickname);
                 map.put("place", listgroup.getPlace());
+                map.put("time", listgroup.getTime());
+                map.put("maker", listgroup.getMaker());
                 Call<Void> callaccountadd = retrofitInterface.executeAccountAdd(map);
                 callaccountadd.enqueue(new Callback<Void>() {
                     @Override
@@ -103,7 +107,6 @@ public class GridAdapter extends BaseAdapter {
                         } else if (response.code() == 400) {
                             Toast.makeText(context, "already participated", Toast.LENGTH_LONG).show();
                         }
-
 
                         Intent i = new Intent(context, DetailActivity.class);
                         i.putExtra("id", position);
