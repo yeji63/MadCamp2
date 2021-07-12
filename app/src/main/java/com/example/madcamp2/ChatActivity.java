@@ -1,12 +1,9 @@
 package com.example.madcamp2;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Base64;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -19,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
@@ -36,7 +32,6 @@ public class ChatActivity extends AppCompatActivity implements TextWatcher {
     private String SERVER_PATH = "ws://192.249.18.145:443";
     private EditText messageEdit;
     private View sendBtn;
-//    private View pickImgBtn;
     private RecyclerView recyclerView;
     private int IMAGE_REQUEST_ID = 1;
     private MessageAdapter messageAdapter;
@@ -82,7 +77,6 @@ public class ChatActivity extends AppCompatActivity implements TextWatcher {
         messageEdit.removeTextChangedListener(this);
         messageEdit.setText("");
         sendBtn.setVisibility(View.INVISIBLE);
-//        pickImgBtn.setVisibility(View.VISIBLE);
 
         messageEdit.addTextChangedListener(this);
     }
@@ -121,7 +115,6 @@ public class ChatActivity extends AppCompatActivity implements TextWatcher {
     private void initializeView() {
         messageEdit=findViewById(R.id.messageEdit);
         sendBtn=findViewById(R.id.sendBtn);
-//        pickImgBtn=findViewById(R.id.pickImgBtn);
         recyclerView=findViewById(R.id.recyclerView);
 
         messageAdapter = new MessageAdapter(getLayoutInflater());
@@ -149,13 +142,6 @@ public class ChatActivity extends AppCompatActivity implements TextWatcher {
             }
         });
 
-//        pickImgBtn.setOnClickListener(v -> {
-//            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-//            intent.setType("image/*");
-//
-//            startActivityForResult(Intent.createChooser(intent, "Pick image"), IMAGE_REQUEST_ID);
-//
-//        });
     }
 
     @Override
@@ -165,37 +151,9 @@ public class ChatActivity extends AppCompatActivity implements TextWatcher {
         if(requestCode == IMAGE_REQUEST_ID && resultCode == RESULT_OK){
             try {
                 InputStream is =getContentResolver().openInputStream(data.getData());
-                Bitmap image = BitmapFactory.decodeStream(is);
-
-                sendImage(image);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
-        }
-    }
-
-    private void sendImage(Bitmap image) {
-
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        image.compress(Bitmap.CompressFormat.JPEG, 50, outputStream);
-
-        String base64String = Base64.encodeToString(outputStream.toByteArray(),
-                Base64.DEFAULT);
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put("name", name);
-            jsonObject.put("image", base64String);
-
-            webSocket.send(jsonObject.toString());
-
-            jsonObject.put("isSent", true);
-
-            messageAdapter.addItem(jsonObject);
-
-            recyclerView.smoothScrollToPosition(messageAdapter.getItemCount()-1);
-
-        } catch (JSONException e) {
-            e.printStackTrace();
         }
     }
 }

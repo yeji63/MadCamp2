@@ -84,7 +84,7 @@ public class SubActivity extends AppCompatActivity
 
 
         //add group dialog
-        Button addbutton = findViewById(R.id.btn_add);
+        ImageView addbutton = findViewById(R.id.btn_add);
         addbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,7 +95,7 @@ public class SubActivity extends AppCompatActivity
         });
 
         // logout
-        findViewById(R.id.btn_logout).setOnClickListener(new View.OnClickListener()
+        findViewById(R.id.logout_tv).setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)

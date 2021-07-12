@@ -13,12 +13,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MadCamp2"
         android:usesCleartextTraffic="true">
-        <activity android:name=".DetailActivity"></activity>
-        <activity android:name=".ChatMainActivity"></activity>
-        <activity android:name=".ChatActivity"></activity>
-        <activity android:name=".SubActivity" />
-        <activity android:name=".AddGroup" />
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".DetailActivity"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
+        <activity
+            android:name=".ChatActivity"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
+        <activity
+            android:name=".SubActivity"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
+        <activity
+            android:name=".AddGroup"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -29,15 +38,12 @@
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="daad52223919b46b71d754468f98ab90" />
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="${MAPS_API_KEY}" />
-
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-
     </application>
 
 </manifest>

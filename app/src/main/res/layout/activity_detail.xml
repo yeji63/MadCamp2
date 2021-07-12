@@ -16,9 +16,10 @@
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/marketimg"
             android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginLeft="30dp"
+            android:layout_height="95dp"
+            android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
+            android:background="@color/white"
             android:src="@drawable/rice" />
 
         <LinearLayout
@@ -28,40 +29,75 @@
             android:orientation="vertical">
             <TextView
                 android:id="@+id/date"
+                android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="0월 0일 저녁식사"
-                android:textSize="25dp"
+                android:textSize="15dp"
                 android:textAlignment="center"
-                android:gravity="center_horizontal"/>
-            <TextView
-                android:id="@+id/marketname"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="가게 이름"
-                android:textSize="25dp"
-                android:textAlignment="center"
-                android:gravity="center_horizontal"/>
-            <TextView
-                android:id="@+id/time"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="00시에"
-                android:textSize="25dp"
-                android:textAlignment="center"
-                android:gravity="center_horizontal"/>
-        </LinearLayout>
+                android:gravity="center_horizontal"
+                android:layout_marginBottom="10dp"/>
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="장소 :  "
+                    android:textColor="@color/black"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:id="@+id/marketname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="가게 이름"
+                    android:textColor="@color/black"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="시간 :  "
+                    android:textColor="@color/black"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:id="@+id/time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="00시에"
+                    android:textColor="@color/black"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
 
     <fragment
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
-        android:layout_height="371dp"
+        android:layout_height="340dp"
+        android:layout_marginBottom="20dp"
         tools:context=".MapsActivity" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_marginTop="30dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal">
