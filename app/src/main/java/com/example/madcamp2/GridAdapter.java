@@ -91,32 +91,49 @@ public class GridAdapter extends BaseAdapter {
         enter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
-                retrofitInterface = retrofit.create(RetrofitInterface.class);
-                HashMap<String, String> map = new HashMap<>();
-                map.put("nickname", accountnickname);
-                map.put("place", listgroup.getPlace());
-                map.put("time", listgroup.getTime());
-                map.put("maker", listgroup.getMaker());
-                Call<Void> callaccountadd = retrofitInterface.executeAccountAdd(map);
-                callaccountadd.enqueue(new Callback<Void>() {
-                    @Override
-                    public void onResponse(Call<Void> callgroupget, Response<Void> response) {
-                        if (response.code() == 200) {
-                            Toast.makeText(context, "add participants successfully", Toast.LENGTH_LONG).show();
-                        } else if (response.code() == 400) {
-                            Toast.makeText(context, "already participated", Toast.LENGTH_LONG).show();
-                        }
+                if(listgroup.getParticipants().contains(accountnickname)){ //already participate
+                    Toast.makeText(context, "Already participated", Toast.LENGTH_LONG).show();
+                    Intent i = new Intent(context, DetailActivity.class);
+                    i.putExtra("id", position);
+                    context.startActivity(i);
+                }
+                else {
+                    if(listgroup.getParticipants().size()>= Integer.parseInt(listgroup.getHeadcount())) {
+                        Toast.makeText(context, "Group already full", Toast.LENGTH_LONG).show();
+                    }
+                    else {
+                        retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
+                        retrofitInterface = retrofit.create(RetrofitInterface.class);
+                        HashMap<String, String> map = new HashMap<>();
+                        map.put("nickname", accountnickname);
+                        map.put("place", listgroup.getPlace());
+                        map.put("time", listgroup.getTime());
+                        map.put("maker", listgroup.getMaker());
+                        map.put("headcount", listgroup.getHeadcount());
+                        Call<Void> callaccountadd = retrofitInterface.executeAccountAdd(map);
+                        callaccountadd.enqueue(new Callback<Void>() {
+                            @Override
+                            public void onResponse(Call<Void> callgroupget, Response<Void> response) {
+                                if (response.code() == 200) {
+                                    Toast.makeText(context, "add participants successfully", Toast.LENGTH_LONG).show();
+                                    Intent i = new Intent(context, DetailActivity.class);
+                                    i.putExtra("id", position);
+                                    context.startActivity(i);
+                                } else if (response.code() == 400) {
+                                    Toast.makeText(context, "already participated", Toast.LENGTH_LONG).show();
+                                    Intent i = new Intent(context, DetailActivity.class);
+                                    i.putExtra("id", position);
+                                    context.startActivity(i);
+                                }
+                            }
 
-                        Intent i = new Intent(context, DetailActivity.class);
-                        i.putExtra("id", position);
-                        context.startActivity(i);
+                            @Override
+                            public void onFailure(Call<Void> callgroupget, Throwable t) {
+                                Toast.makeText(context, t.getMessage(), Toast.LENGTH_LONG).show();
+                            }
+                        });
                     }
-                    @Override
-                    public void onFailure(Call<Void> callgroupget, Throwable t) {
-                        Toast.makeText(context, t.getMessage(), Toast.LENGTH_LONG).show();
-                    }
-                });
+                }
             }
         });
 
