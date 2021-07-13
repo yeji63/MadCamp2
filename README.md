@@ -59,8 +59,7 @@
 >
 
 ### 모임 상세
-<img src = "https://user-images.githubusercontent.com/77380770/125490253-c253a8a6-dab9-4a41-bc27-9d4c86092c11.gif" width="200">
-<img src = "https://user-images.githubusercontent.com/77380770/125489978-289fbf50-4955-4d57-beea-03ef9a0203bf.gif" width="200"> <img src = "https://user-images.githubusercontent.com/77380770/125490066-55c0e538-d6d4-4f13-8c9c-1df26a3cba91.gif" width="200">
+<img src = "https://user-images.githubusercontent.com/77380770/125490253-c253a8a6-dab9-4a41-bc27-9d4c86092c11.gif" width="200"><img src = "https://user-images.githubusercontent.com/77380770/125489978-289fbf50-4955-4d57-beea-03ef9a0203bf.gif" width="200"> <img src = "https://user-images.githubusercontent.com/77380770/125490066-55c0e538-d6d4-4f13-8c9c-1df26a3cba91.gif" width="200">
 - 설명
 > 화면 상단: 대표 사진, 날짜, 시간, 장소 표시
 >
