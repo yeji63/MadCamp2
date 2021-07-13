@@ -162,7 +162,6 @@ public class SubActivity extends AppCompatActivity
                                 break;
 
                             case R.id.participants:
-                                Toast.makeText(SubActivity.this, "Test111", Toast.LENGTH_LONG).show();
                                 Listgroup group = fromdb.get(position);
                                 ParticipantsFragment dialog = new ParticipantsFragment(mCon, group);
                                 dialog.show(getSupportFragmentManager(), "Participants list");
