@@ -116,6 +116,9 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), ChatActivity.class);
                 i.putExtra("name", nickname);
+                i.putExtra("market", marketname.getText());
+                i.putExtra("date", date.getText());
+
                 startActivity(i);
             }
         });

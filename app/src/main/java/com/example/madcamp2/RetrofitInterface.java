@@ -2,6 +2,7 @@ package com.example.madcamp2;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -40,5 +41,9 @@ public interface RetrofitInterface {
     @POST("/upload")
     Call<RequestBody> uplaodImage (@Part MultipartBody.Part part, @Part("somedate") RequestBody requestBody);
 
+    @POST("/showchat")
+    Call<ChatResult> showChat(@Body HashMap<String, String> map);
 
+    @POST("/storechat")
+    Call<Void> storeChat(@Body HashMap<String, List<String>> map);
 }
