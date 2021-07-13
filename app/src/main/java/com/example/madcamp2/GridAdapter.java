@@ -93,7 +93,7 @@ public class GridAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 if(listgroup.getParticipants().contains(accountnickname)){ //already participate
-                    Toast.makeText(context, "Already participated", Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "Already participated", Toast.LENGTH_SHORT).show();
                     Intent i = new Intent(context, DetailActivity.class);
                     i.putExtra("id", position);
                     i.putExtra("nickname", accountnickname);
@@ -101,7 +101,7 @@ public class GridAdapter extends BaseAdapter {
                 }
                 else {
                     if(listgroup.getParticipants().size()>= Integer.parseInt(listgroup.getHeadcount())) {
-                        Toast.makeText(context, "Group already full", Toast.LENGTH_LONG).show();
+                        Toast.makeText(context, "Group already full", Toast.LENGTH_SHORT).show();
                     }
                     else {
                         retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
@@ -117,12 +117,12 @@ public class GridAdapter extends BaseAdapter {
                             @Override
                             public void onResponse(Call<Void> callgroupget, Response<Void> response) {
                                 if (response.code() == 200) {
-                                    Toast.makeText(context, "add participants successfully", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(context, "add participants successfully", Toast.LENGTH_SHORT).show();
                                     Intent i = new Intent(context, DetailActivity.class);
                                     i.putExtra("id", position);
                                     context.startActivity(i);
                                 } else if (response.code() == 400) {
-                                    Toast.makeText(context, "already participated", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(context, "already participated", Toast.LENGTH_SHORT).show();
                                     Intent i = new Intent(context, DetailActivity.class);
                                     i.putExtra("id", position);
                                     context.startActivity(i);
@@ -131,7 +131,7 @@ public class GridAdapter extends BaseAdapter {
 
                             @Override
                             public void onFailure(Call<Void> callgroupget, Throwable t) {
-                                Toast.makeText(context, t.getMessage(), Toast.LENGTH_LONG).show();
+                                Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         });
                     }

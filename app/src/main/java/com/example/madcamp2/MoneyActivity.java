@@ -9,8 +9,19 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.text.NumberFormat;
+import java.util.HashMap;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MoneyActivity extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,17 +32,26 @@ public class MoneyActivity extends AppCompatActivity {
         EditText heads = (EditText) findViewById(R.id.heads);
         ImageView calculate = (ImageView) findViewById(R.id.arrow);
         TextView one = (TextView) findViewById(R.id.one);
+        int participants = getIntent().getIntExtra("participants", 0);
 
-        //heads.setText(); headcount 받아서 set해주면 될듯
 
-        int totalwon = Integer.parseInt(total.getText().toString());
-        int totalhead = Integer.parseInt(heads.getText().toString());
+        heads.setText(Integer.toString(participants));
+        //현재 참여자 수 받기
+
+
 
         calculate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int cal = totalwon/totalhead;
-                one.setText(""+cal);
+                if(total.getText().toString().matches("")) {
+                    Toast.makeText(MoneyActivity.this,"Put Total Price", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    int totalwon = Integer.parseInt(total.getText().toString());
+                    int totalhead = Integer.parseInt(heads.getText().toString());
+                    int cal = totalwon/totalhead;
+                    one.setText(NumberFormat.getInstance().format(cal));
+                }
             }
         });
     }

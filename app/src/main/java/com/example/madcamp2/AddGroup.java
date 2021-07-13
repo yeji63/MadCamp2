@@ -139,14 +139,14 @@ public class AddGroup extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {
                         if (response.code() == 200) {
-                            Toast.makeText(AddGroup.this, "add group successfully", Toast.LENGTH_LONG).show();
+                            Toast.makeText(AddGroup.this, "add group successfully", Toast.LENGTH_SHORT).show();
                         } else if (response.code() == 400) {
-                            Toast.makeText(AddGroup.this, "Already registered", Toast.LENGTH_LONG).show();
+                            Toast.makeText(AddGroup.this, "Already registered", Toast.LENGTH_SHORT).show();
                         }
                     }
                     @Override
                     public void onFailure(Call<Void> call, Throwable t) {
-                        Toast.makeText(AddGroup.this, t.getMessage(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(AddGroup.this, t.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
 

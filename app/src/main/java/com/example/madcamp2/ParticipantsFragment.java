@@ -70,12 +70,12 @@ public class ParticipantsFragment extends DialogFragment {
 
                 }
                 else {
-                    Toast.makeText(mCon, "test", Toast.LENGTH_LONG).show();
+                    Toast.makeText(mCon, "test", Toast.LENGTH_SHORT).show();
                 }
             }
             @Override
             public void onFailure(Call<ArrayList<ListviewItem>> callgetuserimg, Throwable t) {
-                Toast.makeText(mCon, t.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(mCon, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
