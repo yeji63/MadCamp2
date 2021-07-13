@@ -96,6 +96,7 @@ public class GridAdapter extends BaseAdapter {
                     Toast.makeText(context, "Already participated", Toast.LENGTH_LONG).show();
                     Intent i = new Intent(context, DetailActivity.class);
                     i.putExtra("id", position);
+                    i.putExtra("nickname", accountnickname);
                     context.startActivity(i);
                 }
                 else {

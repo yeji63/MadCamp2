@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -30,6 +31,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import retrofit2.Call;
@@ -45,6 +47,7 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
     private RetrofitInterface retrofitInterface;
     private String BASE_URL = "http://192.249.18.145:80";
 
+    private Listgroup listgroup;
     private GoogleMap mMap;
     private Geocoder geocoder;
 
@@ -63,6 +66,7 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
         TextView time = (TextView) findViewById(R.id.time);
         ImageButton chat = (ImageButton) findViewById(R.id.chat);
         ImageButton money = (ImageButton) findViewById(R.id.money);
+        Button leavegroup = (Button) findViewById(R.id.leave_group);
 
         Intent i = getIntent();
         position = i.getExtras().getInt("id");
@@ -76,7 +80,7 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
             public void onResponse(Call<ArrayList<Listgroup>> callgroupget, Response<ArrayList<Listgroup>> response) {
                 if (response.code() == 200) {
                     ArrayList<Listgroup> fromdb = response.body();
-                    Listgroup listgroup = fromdb.get(position);
+                    listgroup = fromdb.get(position);
                     time.setText(listgroup.getTime());
                     marketname.setText(listgroup.getPlace());
                     Log.d("yejieyejieyeji", "" + marketname.getText());
@@ -122,6 +126,36 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
                 Intent i = new Intent(getApplicationContext(), MoneyActivity.class);
                 //headcount 넘기면 될듯
                 startActivity(i);
+            }
+        });
+
+        leavegroup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                HashMap<String, String> map = new HashMap<>();
+                map.put("nickname", nickname);
+                map.put("place", listgroup.getPlace());
+                map.put("time", listgroup.getTime());
+                map.put("headcount", listgroup.getHeadcount());
+                map.put("date", listgroup.getDate());
+                retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
+                retrofitInterface = retrofit.create(RetrofitInterface.class);
+                Call<Void> callaccountdelete = retrofitInterface.executeAccountDelete(map);
+                callaccountdelete.enqueue(new Callback<Void>() {
+                    @Override
+                    public void onResponse(Call<Void> callaccountdelete, Response<Void> response) {
+                        if (response.code() == 200) {
+                            Toast.makeText(DetailActivity.this, "group out", Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(DetailActivity.this, "test12", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<Void> callgroupget, Throwable t) {
+                        Toast.makeText(DetailActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+                finish();
             }
         });
 
