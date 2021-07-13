@@ -69,7 +69,6 @@ public class ChatActivity extends AppCompatActivity implements TextWatcher {
             resetMessageEdit();
         } else{
             sendBtn.setVisibility(View.VISIBLE);
-//            pickImgBtn.setVisibility(View.INVISIBLE);
         }
     }
 
