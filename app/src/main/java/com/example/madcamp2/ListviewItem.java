@@ -1,22 +1,27 @@
 package com.example.madcamp2;
 
 public class ListviewItem {
-    private String member_name;
-    private String member_img;
+    private String nickname;
+    private String profileimg;
+
+    public ListviewItem(String nickname, String profileimg) {
+        this.profileimg = profileimg;
+        this.nickname = nickname;
+    }
 
     public String getMember_img() {
-        return member_img;
+        return profileimg;
     }
 
     public String getMember_name() {
-        return member_name;
+        return nickname;
     }
 
-    public void setMember_img(String member_img) {
-        this.member_img = member_img;
+    public void setMember_img(String profileimg) {
+        this.profileimg = profileimg;
     }
 
-    public void setMember_name(String member_name) {
-        this.member_name = member_name;
+    public void setMember_name(String nickname) {
+        this.nickname = nickname;
     }
 }
