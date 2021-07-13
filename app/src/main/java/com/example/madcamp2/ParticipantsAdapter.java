@@ -57,7 +57,6 @@ public class ParticipantsAdapter extends BaseAdapter {
         // 아이템 내 각 위젯에 데이터 반영
 
         //set이미지인데, string이라 뭐로해야할지
-        //member_img.setImage(item.getMember_img());
         Glide.with(context).load(item.getMember_img());
         member_name.setText(item.getMember_name());
 
