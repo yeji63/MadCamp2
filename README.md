@@ -14,13 +14,14 @@
 >앱 시작 화면으로 설정.
 
 ### 로그인 화면
+<img src = "https://user-images.githubusercontent.com/77380770/125489523-80f93212-0450-4f45-913b-ca067037f5de.gif" width="200">
 - 설명
 > 카카오톡 로그인 sdk를 활용하여 사용자 가입, 로그인을 처리하였다. 
 >
 > 첫 사용자는 User database에 프로필 이미지와 카카오톡 닉네임이 등록된다.
 
 ### 메인 화면
-<img src = "https://user-images.githubusercontent.com/77380770/125489523-80f93212-0450-4f45-913b-ca067037f5de.gif" width="200">   <img src = "https://user-images.githubusercontent.com/77380770/125489536-72a46eed-ef61-401b-bfdc-fe4ab6c3fee0.gif" width="200">
+<img src = "https://user-images.githubusercontent.com/77380770/125489536-72a46eed-ef61-401b-bfdc-fe4ab6c3fee0.gif" width="200">
 - 설명
 > 왼쪽 상단: 사용자 프로필, 로그아웃
 >
@@ -40,7 +41,7 @@
 
 ### 모임 추가
 
-<img src = "https://user-images.githubusercontent.com/77380770/125490165-69e43ec2-a7b4-4a3d-9ff8-f07546dc48a6.gif" width="200">   <img src = "https://user-images.githubusercontent.com/77380770/125490253-c253a8a6-dab9-4a41-bc27-9d4c86092c11.gif" width="200">
+<img src = "https://user-images.githubusercontent.com/77380770/125490165-69e43ec2-a7b4-4a3d-9ff8-f07546dc48a6.gif" width="200">
 
 - 설명
 >메인화면에서 NEW 버튼을 누르면 창이 뜬다.
@@ -58,6 +59,7 @@
 >
 
 ### 모임 상세
+<img src = "https://user-images.githubusercontent.com/77380770/125490253-c253a8a6-dab9-4a41-bc27-9d4c86092c11.gif" width="200">
 <img src = "https://user-images.githubusercontent.com/77380770/125489978-289fbf50-4955-4d57-beea-03ef9a0203bf.gif" width="200"> <img src = "https://user-images.githubusercontent.com/77380770/125490066-55c0e538-d6d4-4f13-8c9c-1df26a3cba91.gif" width="200">
 - 설명
 > 화면 상단: 대표 사진, 날짜, 시간, 장소 표시
