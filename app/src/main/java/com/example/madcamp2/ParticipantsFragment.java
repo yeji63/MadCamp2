@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -33,10 +34,13 @@ public class ParticipantsFragment extends DialogFragment {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.participants, container, false);
         getDialog().setCanceledOnTouchOutside(true);
 
+        ListView listview;
+        ParticipantsAdapter adapter;
 
+        adapter = new ParticipantsAdapter();
 
-
-
+        listview = (ListView) rootView.findViewById(R.id.member_list);
+        listview.setAdapter(adapter);
 
         return rootView;
     }
