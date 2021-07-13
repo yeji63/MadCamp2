@@ -123,7 +123,9 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
         money.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent i = new Intent(getApplicationContext(), MoneyActivity.class);
+                //headcount 넘기면 될듯
+                startActivity(i);
             }
         });
 

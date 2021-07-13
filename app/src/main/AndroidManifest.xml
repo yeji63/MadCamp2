@@ -13,6 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MadCamp2"
         android:usesCleartextTraffic="true">
+        <activity android:name=".MoneyActivity"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"></activity>
         <activity
             android:name=".DetailActivity"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
