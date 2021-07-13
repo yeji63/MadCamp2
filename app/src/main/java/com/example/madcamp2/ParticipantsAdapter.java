@@ -8,6 +8,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 
 public class ParticipantsAdapter extends BaseAdapter {
@@ -56,7 +58,7 @@ public class ParticipantsAdapter extends BaseAdapter {
 
         //set이미지인데, string이라 뭐로해야할지
         //member_img.setImage(item.getMember_img());
-
+        Glide.with(context).load(item.getMember_img());
         member_name.setText(item.getMember_name());
 
         return convertView;
