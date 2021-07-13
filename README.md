@@ -40,7 +40,7 @@
 
 ### 모임 추가
 
-<img src = "https://user-images.githubusercontent.com/77380770/125489523-80f93212-0450-4f45-913b-ca067037f5de.gif" width="200">   <img src = "https://user-images.githubusercontent.com/77380770/125489536-72a46eed-ef61-401b-bfdc-fe4ab6c3fee0.gif" width="200">
+<img src = "https://user-images.githubusercontent.com/77380770/125490165-69e43ec2-a7b4-4a3d-9ff8-f07546dc48a6.gif" width="200">   <img src = "https://user-images.githubusercontent.com/77380770/125490253-c253a8a6-dab9-4a41-bc27-9d4c86092c11.gif" width="200">
 
 - 설명
 >메인화면에서 NEW 버튼을 누르면 창이 뜬다.
