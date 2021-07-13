@@ -42,8 +42,7 @@ public class ChatActivity extends AppCompatActivity implements TextWatcher {
     String roomname;
     String date;
     String market;
-    private String name;
-    private WebSocket webSocket;
+    private String nickname;
     private String SERVER_PATH = "ws://192.249.18.145:443";
     private EditText messageEdit;
     private View sendBtn;
@@ -64,7 +63,7 @@ public class ChatActivity extends AppCompatActivity implements TextWatcher {
         market=getIntent().getStringExtra("market");
         roomname = date + " / "+ market;
 
-        name = getIntent().getStringExtra("name");
+        nickname = getIntent().getStringExtra("name");
 
         recyclerView = findViewById(R.id.recyclerView);
         messageEdit = findViewById(R.id.messageEdit);
@@ -80,7 +79,7 @@ public class ChatActivity extends AppCompatActivity implements TextWatcher {
             initializeView(roomname);
 
             //join room
-            mSocket.emit("join_chat", name, roomname);
+            mSocket.emit("join_chat", nickname, roomname);
 
             //if joined, get notification
             mSocket.on("user_join_notifi", new Emitter.Listener() {
@@ -102,10 +101,10 @@ public class ChatActivity extends AppCompatActivity implements TextWatcher {
                 public void onClick(View v) {
                     //send data to server through socket io
                     String new_message = messageEdit.getText().toString();
-                    mSocket.emit("new_message", roomname, name, new_message);
+                    mSocket.emit("new_message", roomname, nickname, new_message);
 
                     ArrayList<String> send = new ArrayList<>();
-                    send.add("send"); send.add("msg"); send.add(roomname); send.add(name); send.add(new_message);
+                    send.add("send"); send.add("msg"); send.add(roomname); send.add(nickname); send.add(new_message);
 
                     //store chat to database
                     store_chat(send);
@@ -134,7 +133,7 @@ public class ChatActivity extends AppCompatActivity implements TextWatcher {
                             }
                             String userinfo = null;
                             try {
-                                userinfo = data.getString("id");
+                                userinfo = data.getString("nickname");
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -146,12 +145,12 @@ public class ChatActivity extends AppCompatActivity implements TextWatcher {
                             }
 
                             //should not be user's own chat
-                            if(!userinfo.equals(name)){
+                            if(!userinfo.equals(nickname)){
                                 ArrayList<String> send = new ArrayList<>();
-                                send.add("receive"); send.add("msg"); send.add(roomname); send.add(name); send.add(message);
+                                send.add("receive"); send.add("msg"); send.add(roominfo); send.add(userinfo); send.add(message);
 
                                 //store chat to database
-                                store_chat(send);
+                                //show_chat(roomname);
 
                                 //visualize
                                 messageAdapter.addItem(send);
@@ -242,14 +241,29 @@ public class ChatActivity extends AppCompatActivity implements TextWatcher {
 
                     ChatResult result = response.body();
 
-                    ArrayList<String> nickname = result.getNickname();
+                    ArrayList<String> db_nickname = result.getNickname();
                     ArrayList<String> message = result.getMessage();
 
-                    for(int i=0; i<nickname.size(); i++){
+                    for(int i=0; i<db_nickname.size(); i++){
                         ArrayList<String> data = new ArrayList<>();
-                        data.add("send"); data.add("msg"); data.add(roomname); data.add(nickname.get(i)); data.add(message.get(i));
-                        messageAdapter.addItem(data);
-                        recyclerView.smoothScrollToPosition(messageAdapter.getItemCount()-1);
+                        if( nickname.equals(db_nickname.get(i)) ) {
+                            data.add("send");
+                            data.add("msg");
+                            data.add(roomname);
+                            data.add(db_nickname.get(i));
+                            data.add(message.get(i));
+                            messageAdapter.addItem(data);
+                            recyclerView.smoothScrollToPosition(messageAdapter.getItemCount()-1);
+                        }
+                        else {
+                            data.add("receive");
+                            data.add("msg");
+                            data.add(roomname);
+                            data.add(db_nickname.get(i));
+                            data.add(message.get(i));
+                            messageAdapter.addItem(data);
+                            recyclerView.smoothScrollToPosition(messageAdapter.getItemCount()-1);
+                        }
                     }
 
                 } else if (response.code() == 400) {

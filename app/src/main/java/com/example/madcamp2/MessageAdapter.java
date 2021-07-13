@@ -56,7 +56,8 @@ public class MessageAdapter extends RecyclerView.Adapter {
         if (message.get(0).equals("send")) {
             if (message.get(1).equals("msg"))
                 return TYPE_MESSAGE_SENT;
-        } else {
+        }
+        else {
             if (message.get(1).equals("msg"))
                 return TYPE_MESSAGE_RECEIVED;
         }
