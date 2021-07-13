@@ -64,6 +64,7 @@ public class SubActivity extends AppCompatActivity
         retrofitInterface = retrofit.create(RetrofitInterface.class);
         HashMap<String, String> map = new HashMap<>();
         map.put("nickname", strNick);
+        map.put("profileimg", strProfileImg);
         Call<Void> callsignup = retrofitInterface.executeSignup(map);
         callsignup.enqueue(new Callback<Void>() {
             @Override

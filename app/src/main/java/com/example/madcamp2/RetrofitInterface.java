@@ -31,6 +31,9 @@ public interface RetrofitInterface {
     @GET("/getgroup")
     Call<ArrayList<Listgroup>> executeGroupGet();
 
+    @POST("/getuserimg")
+    Call<ArrayList<ListviewItem>> executeGetUserimg(@Body HashMap<String, ArrayList<String>> map);
+
     @POST("/upload")
     Call<RequestBody> uplaodImage (@Part MultipartBody.Part part, @Part("somedate") RequestBody requestBody);
 

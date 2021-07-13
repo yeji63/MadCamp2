@@ -7,27 +7,41 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ParticipantsAdapter extends BaseAdapter {
 
-    private ArrayList<ListviewItem> itemlist = new ArrayList<ListviewItem>();
+    private ArrayList<ListviewItem> users = new ArrayList<ListviewItem>();
+    private Retrofit retrofit;
+    private RetrofitInterface retrofitInterface;
+    private String BASE_URL = "http://192.249.18.145:80";
+    private ListviewItem fromdb;
 
-    public ParticipantsAdapter(){
+    public ParticipantsAdapter(ArrayList<ListviewItem> users){
+        this.users = users;
 
     }
 
     @Override
     public int getCount() {
-        return itemlist.size();
+        return users.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return itemlist.get(position);
+        return users.get(position);
     }
 
     @Override
@@ -40,26 +54,20 @@ public class ParticipantsAdapter extends BaseAdapter {
 
         final int pos = position;
         final Context context = parent.getContext();
+        ListviewItem user = users.get(position);
 
-        // "listview_item" Layout을 inflate하여 convertView 참조 획득.
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.participant_item, parent, false);
         }
 
-        // 화면에 표시될 View(Layout이 inflate된)으로부터 위젯에 대한 참조 획득
-        ImageView member_img = (ImageView) convertView.findViewById(R.id.member_img) ;
-        TextView member_name = (TextView) convertView.findViewById(R.id.member_name) ;
+        ImageView member_img = (ImageView) convertView.findViewById(R.id.member_img);
+        TextView member_name = (TextView) convertView.findViewById(R.id.member_name);
 
-        // Data Set(listViewItemList)에서 position에 위치한 데이터 참조 획득
-        ListviewItem item = itemlist.get(position);
+        Glide.with(context).load(user.getMember_img()).into(member_img);
+        member_name.setText(user.getMember_name());
 
-        // 아이템 내 각 위젯에 데이터 반영
-
-        //set이미지인데, string이라 뭐로해야할지
-        Glide.with(context).load(item.getMember_img());
-        member_name.setText(item.getMember_name());
-
+        
         return convertView;
     }
 }
