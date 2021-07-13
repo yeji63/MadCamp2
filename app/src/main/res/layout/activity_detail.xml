@@ -99,7 +99,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_marginTop="30dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <ImageButton
@@ -113,25 +113,31 @@
             android:src="@drawable/conversation"
             app:layout_constraintStart_toStartOf="parent"
             tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteY="64dp" />
+            tools:layout_editor_absoluteY="44dp" />
 
         <ImageButton
             android:id="@+id/money"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:layout_marginEnd="80dp"
-            android:layout_marginRight="80dp"
+            android:layout_marginEnd="84dp"
+            android:layout_marginRight="84dp"
             android:background="@color/white"
             android:scaleType="centerInside"
             android:src="@drawable/cash"
             app:layout_constraintEnd_toEndOf="parent"
             tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteY="64dp" />
+            tools:layout_editor_absoluteY="43dp" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
+    <Button
+        android:id="@+id/leave_group"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_gravity="center"
+        android:text="Leave Group" />
 
 
 </LinearLayout>
