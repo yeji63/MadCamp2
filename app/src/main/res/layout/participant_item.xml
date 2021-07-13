@@ -1,26 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    android:layout_gravity="center">
+    android:layout_gravity="center"
+    android:layout_marginTop="10dp"
+    android:layout_marginLeft="10dp">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/member_img"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:src="@drawable/won"
+        app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints"
-        android:src="@drawable/won"/>
+        tools:layout_editor_absoluteY="3dp" />
 
     <TextView
         android:id="@+id/member_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:gravity="center_horizontal"
         android:text="name"
-        android:textSize="20dp"
+        android:textAlignment="center"
         android:textColor="@color/black"
-        tools:ignore="MissingConstraints" />
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.539"
+        app:layout_constraintStart_toEndOf="@+id/member_img"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="16dp" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
