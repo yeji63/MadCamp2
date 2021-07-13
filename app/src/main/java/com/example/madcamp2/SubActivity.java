@@ -70,14 +70,14 @@ public class SubActivity extends AppCompatActivity
             @Override
             public void onResponse(Call<Void> callsignup, Response<Void> response) {
                 if (response.code() == 200) {
-                    Toast.makeText(SubActivity.this, "Signed up successfully", Toast.LENGTH_LONG).show();
+                    Toast.makeText(SubActivity.this, "Signed up successfully", Toast.LENGTH_SHORT).show();
                 } else if (response.code() == 400) {
-                    Toast.makeText(SubActivity.this, "Already registered", Toast.LENGTH_LONG).show();
+                    Toast.makeText(SubActivity.this, "Already registered", Toast.LENGTH_SHORT).show();
                 }
             }
             @Override
             public void onFailure(Call<Void> callsignup, Throwable t) {
-                Toast.makeText(SubActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(SubActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -143,20 +143,20 @@ public class SubActivity extends AppCompatActivity
                                         @Override
                                         public void onResponse(Call<Void> call, Response<Void> response) {
                                             if (response.code() == 200) {
-                                                Toast.makeText(SubActivity.this, "delete group successfully", Toast.LENGTH_LONG).show();
+                                                Toast.makeText(SubActivity.this, "delete group successfully", Toast.LENGTH_SHORT).show();
                                             } else if (response.code() == 400) {
-                                                Toast.makeText(SubActivity.this, "fail to delete", Toast.LENGTH_LONG).show();
+                                                Toast.makeText(SubActivity.this, "fail to delete", Toast.LENGTH_SHORT).show();
                                             }
                                         }
                                         @Override
                                         public void onFailure(Call<Void> call, Throwable t) {
-                                            Toast.makeText(SubActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+                                            Toast.makeText(SubActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
                                         }
                                     });
                                     return true;
                                 }
                                 else {
-                                    Toast.makeText(SubActivity.this, "Not a maker", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(SubActivity.this, "Not a maker", Toast.LENGTH_SHORT).show();
                                 }
 
                                 break;
@@ -195,12 +195,12 @@ public class SubActivity extends AppCompatActivity
                     listView.setAdapter(adapter);
                 }
                 else {
-                    Toast.makeText(SubActivity.this, "test", Toast.LENGTH_LONG).show();
+                    Toast.makeText(SubActivity.this, "test", Toast.LENGTH_SHORT).show();
                 }
             }
             @Override
             public void onFailure(Call<ArrayList<Listgroup>> callgroupget, Throwable t) {
-                Toast.makeText(SubActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(SubActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -97,13 +97,13 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
                             .findFragmentById(R.id.map);
                     mapFragment.getMapAsync(DetailActivity.this::onMapReady);
                 } else {
-                    Toast.makeText(DetailActivity.this, "test", Toast.LENGTH_LONG).show();
+                    Toast.makeText(DetailActivity.this, "test", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<ArrayList<Listgroup>> callgroupget, Throwable t) {
-                Toast.makeText(DetailActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(DetailActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -125,6 +125,7 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), MoneyActivity.class);
                 //headcount 넘기면 될듯
+                i.putExtra("participants", listgroup.getParticipants().size());
                 startActivity(i);
             }
         });
@@ -145,14 +146,14 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
                     @Override
                     public void onResponse(Call<Void> callaccountdelete, Response<Void> response) {
                         if (response.code() == 200) {
-                            Toast.makeText(DetailActivity.this, "group out", Toast.LENGTH_LONG).show();
+                            Toast.makeText(DetailActivity.this, "group out", Toast.LENGTH_SHORT).show();
                         } else {
-                            Toast.makeText(DetailActivity.this, "test12", Toast.LENGTH_LONG).show();
+                            Toast.makeText(DetailActivity.this, "test12", Toast.LENGTH_SHORT).show();
                         }
                     }
                     @Override
                     public void onFailure(Call<Void> callgroupget, Throwable t) {
-                        Toast.makeText(DetailActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(DetailActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
                 finish();
@@ -180,12 +181,12 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
                     Listgroup listgroup = fromdb.get(position);
                     str[0] = listgroup.getPlace();
                 } else {
-                    Toast.makeText(DetailActivity.this, "test", Toast.LENGTH_LONG).show();
+                    Toast.makeText(DetailActivity.this, "test", Toast.LENGTH_SHORT).show();
                 }
             }
             @Override
             public void onFailure(Call<ArrayList<Listgroup>> callgroupget, Throwable t) {
-                Toast.makeText(DetailActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(DetailActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
