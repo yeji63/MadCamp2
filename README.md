@@ -20,7 +20,7 @@
 > 첫 사용자는 User database에 프로필 이미지와 카카오톡 닉네임이 등록된다.
 
 ### 메인 화면
-<img src = "https://user-images.githubusercontent.com/77380770/124611062-0edc6c80-deac-11eb-974e-84289549f51e.gif" width="200">   <img src = "https://user-images.githubusercontent.com/77380770/124610997-fcfac980-deab-11eb-8200-a6673cd8c1e6.gif" width="200">
+<img src = "https://user-images.githubusercontent.com/77380770/125489523-80f93212-0450-4f45-913b-ca067037f5de.gif" width="200">   <img src = "https://user-images.githubusercontent.com/77380770/125489536-72a46eed-ef61-401b-bfdc-fe4ab6c3fee0.gif" width="200">
 - 설명
 > 왼쪽 상단: 사용자 프로필, 로그아웃
 >
@@ -40,6 +40,8 @@
 
 ### 모임 추가
 
+<img src = "https://user-images.githubusercontent.com/77380770/125489523-80f93212-0450-4f45-913b-ca067037f5de.gif" width="200">   <img src = "https://user-images.githubusercontent.com/77380770/125489536-72a46eed-ef61-401b-bfdc-fe4ab6c3fee0.gif" width="200">
+
 - 설명
 >메인화면에서 NEW 버튼을 누르면 창이 뜬다.
 >
@@ -56,7 +58,7 @@
 >
 
 ### 모임 상세
-<img src = "https://user-images.githubusercontent.com/77380770/124599987-3da11580-dea1-11eb-8fa2-6a40bb8caf92.gif" width="200"> <img src = "https://user-images.githubusercontent.com/77380770/124600114-5ad5e400-dea1-11eb-964c-870a735232b8.gif" width="200">
+<img src = "https://user-images.githubusercontent.com/77380770/125489978-289fbf50-4955-4d57-beea-03ef9a0203bf.gif" width="200"> <img src = "https://user-images.githubusercontent.com/77380770/125490066-55c0e538-d6d4-4f13-8c9c-1df26a3cba91.gif" width="200">
 - 설명
 > 화면 상단: 대표 사진, 날짜, 시간, 장소 표시
 >
