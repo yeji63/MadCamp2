@@ -11,10 +11,12 @@
 ## 프로젝트 설명
 ### APP LOGO
 <img src = "https://user-images.githubusercontent.com/77380770/125474252-82f50cbd-eed6-40a3-b1ff-c7462f8a5977.png" width="200" height="200">
->앱 시작 화면으로 설정.
+
+> 앱 시작 화면으로 설정.
 
 ### 로그인 화면
 <img src = "https://user-images.githubusercontent.com/77380770/125489523-80f93212-0450-4f45-913b-ca067037f5de.gif" width="200">
+
 - 설명
 > 카카오톡 로그인 sdk를 활용하여 사용자 가입, 로그인을 처리하였다. 
 >
@@ -22,6 +24,7 @@
 
 ### 메인 화면
 <img src = "https://user-images.githubusercontent.com/77380770/125489536-72a46eed-ef61-401b-bfdc-fe4ab6c3fee0.gif" width="200">
+
 - 설명
 > 왼쪽 상단: 사용자 프로필, 로그아웃
 >
@@ -44,7 +47,7 @@
 <img src = "https://user-images.githubusercontent.com/77380770/125490165-69e43ec2-a7b4-4a3d-9ff8-f07546dc48a6.gif" width="200">
 
 - 설명
->메인화면에서 NEW 버튼을 누르면 창이 뜬다.
+> 메인화면에서 NEW 버튼을 누르면 창이 뜬다.
 >
 >사진은 갤러리에서 추가할 수 있다.
 >
